@@ -1,0 +1,385 @@
+FORMAT: 1A
+HOST: https://api.previo.cz/app/
+
+# Pikolik API
+
+## Notification - OneSignal
+ - On login
+   - `resId = 123456`
+   - `active = true`
+ - On logout
+   - `active = false`
+
+### Type
+  - Online check-in: opens check-in screen
+    - `type = notification`
+    - `title = ...`
+    - `message = ...`
+    - `screen = check-in`
+  - New/Remove account item: opens account
+    - `type = notification`
+    - `title = ...`
+    - `message = ...`
+    - `screen = account`
+    - `action = refresh`
+  - Pay: Opens pop-up screen with pay
+    - `type = notification`
+    - `title = ...`
+    - `message = ...`
+    - `screen = pay`
+    - `action = refresh`
+  - Review: Open review screen
+    - `type = notification`
+    - `title = Ohodnoťte Váš pobyt`
+    - `message = Protože nám záleží na vašem názoru`
+    - `screen = review`
+  - Internal:
+    - `type = internal`
+    - `action = refresh`
+ 
+### Parameters
+- `type` - internal|notification
+- `action` - none|refresh
+- `screen` - review|pay|account|check-in|main
+- `title` - string
+- `message`
+
+## Deep Links
+- `pikolik://payment/success` - opens success dialog
+- `pikolik://payment/fail` - opens fail dialog
+
+
+## Reservation [/reservation]
+
+### Get reservation [GET /reservation{?code}]
+
++ Request
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            
++ Parameters
+    + code: ABCDEF (string,required) - 6 capital chars
+
++ Response 200 (application/json)
+    + Attributes (Reservation)
+    
++ Response 404 (application/json) 
+    + Attributes (Error)
+
+### Cancel reservation [GET /reservation/cancel{?resId}]
+
++ Request
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            
++ Parameters
+    + resId: 2345 (string,required)
+    
++ Response 200 (application/json)
+    + Attributes (Reservation)
+    
++ Response 400 (application/json)
+    + Attributes (Error)
+
+### Post review [POST /reservation/review{?resId}]
+
++ Parameters
+    + resId: 2345 (string,required)
+
++ Request (application/json)
+    + Attributes (Review)
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            
++ Response 200 (application/json)
+    + Attributes (Review)
+    
++ Response 400 (application/json)
+    + Attributes (Error)
+
+## Hotel [/hotel]
+
+### Get hotel info [GET /hotel{?resId}]
+
++ Parameters
+    + resId: 2345 (string,required)
+
++ Request
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            
++ Response 200 (application/json)
+    + Attributes (Hotel)
+    
++ Response 404 (application/json) 
+    + Attributes (Error)
+
+### Get places around [GET /hotel/place{?hotId}]
+
++ Parameters
+    + hotId: 2345 (number,required)
+
++ Request
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            
++ Response 200 (application/json)
+    + Attributes (array[Place])
+
+## Check-in [/reservation/check-in{?gueId}]
+
++ Parameters
+    + gueId: 83618 (number,required) - The unique identifier for guest
+
+### Check-in [PUT]
+
++ Request (application/json)
+    + Attributes (Guest)
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3    
+            
++ Response 200 (application/json)
+    + Attributes (Guest)
+    
++ Response 400 (application/json)
+    + Attributes (Error)
+
+## Check-out [/reservation/check-out{?resId}]
+
++ Parameters
+    + resId: 83618 (number,required) - The unique identifier for reservation
+
+### Check-out [PUT /reservation/check-out{?resId}]
+
++ Request
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            
++ Response 200 (application/json)
+    + Attributes (Reservation)
+    
++ Response 400 (application/json)
+    + Attributes (Error)
+
+## Hotel bill [/account{?resId}]
+
+### Account [GET]
+
++ Request
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            
++ Parameters
+    + resId: 8372 - The unique identifier for reservation
+
++ Response 200 (application/json)
+    + Attributes (Account)
+
+## Services [/services/]
+
+### Services list [GET]
+
++ Request
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            
++ Response 200 (application/json)
+    + Attributes (array[Service])
+
+## Data Structure
+
+## Error
++ code: 402 (number,required)
++ error: Failed to get data (string,required)
++ message: Nepodařilo se získat data (string,required)
+
+## Review
++ isRecommended: true (boolean,required)
++ service: 2 (number, optional) - Services (1 to 5)
++ staff: 5 (number, optional) - Staff (1 to 5)
++ clean: 1 (number, required) - Cleanness (1 to 5)
++ comfort: 2 (number, required) - Comfort (1 to 5)
++ ratio: 4 (number, required) - Price / value ratio (1 to 5)
++ positive: Yo mama (string,optional)
++ negative: Yo mama (string,optional)
++ private: Yo mama (string,optional)
+
+## Reservation
++ resId: 1235 (number,required) - The unique identifier for reservation
++ hotId: 3209 (number,required) - The unique identifier for hotel
++ hasReview: false (boolean, required) - true if user already reviewed this reservation
++ code: ABCDEF (string,required)
++ commissions (array[Commission])
++ contactPerson (ContactPerson,optional)
++ voucher: ABCDDEDS (string, optional)
++ note: Bar bar (string,optional)
+
+## Commission
++ comId: 123456 (number,required) - The unique identifier for commission
++ termFrom: `2017-07-02T06:55:00` (string,required) - ISO 8601
++ termTo: `2017-07-02T06:55:00` (string,required) - ISO 8601
++ isCheckIn: true (boolean, required) - If all guests check-in
++ isCheckOut: false (boolean, required) - If all guests check-out
++ status: 1 (number,required) - The unique identifier for reservation status (ReservationStatus)
++ room: Moderní ubytování s příjemnou postelí (string,optional) - Name of room
++ roomKind: Dvoulůžkový (string,required) - Name of room kind
++ guests (array[Guest],optional)
+
+## Guest
++ gueId: 1233 (number,required) - The unique identifier for guest
++ name: Radim Vaculik (string,optional)
++ email: radim@vaculik.cz (string,optional)
++ phone: +420421123987 (string,optional)
++ guaId: 1 (number,optional) - The unique identifier for guest category (GuestCategory)
++ isRecreation: true (boolean,required)
++ birthDate: `2017-01-01T00:00:00` (string,optional) - ISO 8601
++ birthPlace: London (string, required)
++ genId: 1 (number,optional) - The unique identifier for gender (Gender)
++ identity: MUJPASNUMBER (string,optional)
++ guiId: 1 (number,optional) - The unique identifier for identity type (IdentityType)
++ natId: 1 (number, required) - The unique identifier for nationality
++ address (Address,optional)
+
+## ContactPerson
++ name: Radim Vaculik (string,optional)
++ email: radim@vaculik.cz (string,optional)
++ phone: +420321439439 (string,optional)
+
+## Hotel
++ hotId: 3209 (number,required) - The unique identifier for hotel
++ name: Hotel Janacek (string,required)
++ address (Address,required)
++ url: http://www.hoteljanacek.cz (string,optional)
++ phone: +420251613924 (string,optional)
++ email: info@previo.cz (string,optional)
++ arrival: 15:00:00 (string,required)
++ departure: 10:00:00 (string,required)
++ shortDescription: In as name to here them deny wise this. As rapid woody my he me which. Men but they fail shew just wish next put. Led all visitor musical calling nor her.  (string,required)
++ longDescription: In as name to here them deny wise this. As rapid woody my he me which. Men but they fail shew just wish next put. Led all visitor musical calling nor her. Within coming figure sex things are. Pretended concluded did repulsive education smallness yet yet described. Had country man his pressed shewing. No gate dare rose he. Eyes year if miss he as upon.  (string,required)
++ openingHours (array[OpeningHour])
++ accommodation (Accommodation, required)
++ wellness (Wellness, optional)
++ restaurant (Restaurant, optional)
++ primaryColor: #59b553 (string,required)
++ logo (Logo, required) - Hotel logo
++ images (array[Image]) - Photo of hotel
+
+## Address
++ street: Panska 6 (string, optional)
++ city: Brno (string,optional)
++ zip: 60200 (string,optional)
++ couId: 1 (number,optional) - The unique identifier for country (Country)
++ lat: 49.01235 (number,optional)
++ lon: 16.56454 (number,optional)
+
+## Accommodation
++ title: Accommodation hotel Brno (string, required)
++ shortDescription: Bla bla Accommodation (string, required)
++ longDescription: Meh meh Accommodation (string, optional)
++ images (array[Image]) - Photo of hotel accommodation
+
+## Wellness
++ title: Wellness hotel Brno (string, required)
++ shortDescription: Sussex dej si deset result matter any end see. It speedily me addition weddings vicinity in pleasure. Happiness commanded an conveying breakfast in. Regard her say warmly elinor. (string, required)
++ longDescription: Scarcely on striking packages by so property in delicate. Up or well must less rent read walk so be. Easy sold at do hour sing spot. Any meant has cease too the decay. Since party burst am it match. By or blushes between besides offices noisier as. Sending do brought winding compass in. Paid day till shed only fact age its end. (string, optional)
++ images (array[Image]) - Photo of wellness
+
+## Restaurant
++ description: Meh meh (string,required)
++ menuCategories (array[MenuCategory])
+
+## MenuCategory
++ name: Hlavni jidla (string,required)
++ menuItems (array[MenuItem])
+
+## MenuItem 
++ name: Steak (string, required)
++ price: 100.00 (number, required)
++ currency: czk (string,required) - ISO 4217
+
+## OpeningHour
++ name: Restaurant (string, required)
++ description: The times when a business, such as a bar, restaurant, shop, or bank, is open for people to use it (string, optional)
++ openingHourItems (array[OpeningHourItem])
+
+## OpeningHourItem
++ day: `Monday - Tuesday` (string,required)
++ value: `0:00 - 24:00` (string,optional) - If value is null, service is close
+
+## Account
++ resId: 1235 (number,required) - The unique identifier for reservation (Reservation)
++ total: 129.30 (number,required)
++ currency: czk (string, required) - ISO 4217
++ payUrl: https://webpay.url.cz (string, required)
++ groupAccount (GroupAccount)
++ roomAccounts (array[RoomAccount])
+
+## GroupAccount
++ total: 100.00 (number,required)
++ currency: czk (string, required) - ISO 4217
++ payUrl: https://webpay.url.cz (string, required)
++ items (array[AccountItem])
+
+## RoomAccount
++ comId: 12345 (number,required) - The unique identifier for commission (Commission)
++ total: 100.00 (number,required)
++ currency: czk (string, required) - ISO 4217
++ payUrl: https://webpay.url.cz (string, required)
++ items (array[AccountItem])
+
+## AccountItem
++ coaId: 342 (number, required) - The unique identifier for account item
++ name: Fried Onion Burger (string, required)
++ price: 345.23 (number, required) - Price of item (price * count)
++ paid: 100.50 (number, required)
+
+## Place
++ plaId: 322 (number, required) - The unique identifier for place
++ pltId: 1 (number, required) - The unique identifier for place type (PlaceType)
++ isRecommended: true (boolean, required) - Show place in slider
++ title: SpaceX Launch and Landing Control Center (string, required) 
++ description: The SpaceX bid was for exclusive use of the launch complex to ... and control systems with substantial new plumbing for a variety of (string, optional)
++ photo (Image, optional)
++ address (Address, required)
+
+## Service 
++ serId: 31 (number, required) -  The unique identifier for service
++ name: Breakfast in bed (string, required) - Title of service
++ description: The SpaceX bid was for exclusive use of the launch complex to ... and control systems with substantial new plumbing for a variety of (string, optional)
++ price: 345.23 (number, required) - Price of service
++ currency: czk (string, required) - ISO 4217
++ photo (Image, optional)
+
+## GuestCategory
++ guaId: 1 (number, required)
++ name: `Dítě do 6-ti let` (string, required)
++ ageFrom: 0 (number, required)
++ ageTo: 6 (number, required)
+
+## Logo
++ url: `https://ihg.scene7.com/is/image/ihg/HI_logo_LVP_@2x` (string, required)
++ height: 95 (number, required) - In pixel
++ width: 335 (number, required) - In pixel
+
+## Image
++ url: `https://www.demilked.com/magazine/wp-content/uploads/2014/12/norway-landscape-photography-scandinavian-nature-4.jpg` (string, required)
++ height: 720 (number, required) - In pixel
++ width: 960 (number, required) - In pixel
