@@ -1,7 +1,7 @@
 FORMAT: 1A
 HOST: https://api.previo.cz/app/
 
-# Pikolik API
+# Alfred app API
 
 ## Notification - OneSignal
  - On login
@@ -48,33 +48,59 @@ HOST: https://api.previo.cz/app/
 - `pikolik://payment/success` - opens success dialog
 - `pikolik://payment/fail` - opens fail dialog
 
+## Authentication [/authentication]
 
-## Reservation [/reservation]
+### Get authentication token [GET /authentication{?code}]
 
-### Get reservation [GET /reservation{?code}]
+`In development`
 
-+ Request
++ Request (application/json)
     + Headers
-    
+
             Accept-Language: cs
             X-Previo-App-ID: 3
             
 + Parameters
-    + code: ABCDEF (string,required) - 6 capital chars
+    + code: ABC123 (string,required) - Unique reservation or commission identifier, 6 capital chars and numbers
+    
++ Response 200 (application/json)
+    + Attributes (Authentication)
+    
++ Response 402 (application/json) 
+    + Attributes (AuthError)
 
+## Reservation [/reservation]
+
+### Get reservation [GET /reservation]
+
+`In development`
+
++ Request (application/json)
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            X-Previo-Authentication-Token: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8
+            
 + Response 200 (application/json)
     + Attributes (Reservation)
     
 + Response 404 (application/json) 
     + Attributes (Error)
+    
++ Response 401 (application/json)
+    + Attributes (AuthTimeoutError)
 
 ### Cancel reservation [GET /reservation/cancel{?resId}]
 
-+ Request
+`In development`
+
++ Request (application/json)
     + Headers
     
             Accept-Language: cs
             X-Previo-App-ID: 3
+            X-Previo-Authentication-Token: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8
             
 + Parameters
     + resId: 2345 (string,required)
@@ -85,10 +111,47 @@ HOST: https://api.previo.cz/app/
 + Response 400 (application/json)
     + Attributes (Error)
 
-### Post review [POST /reservation/review{?resId}]
+### Check in [PUT /reservation/checkIn]
 
-+ Parameters
-    + resId: 2345 (string,required)
+`In development`
+
++ Request (application/json)
+    + Attributes (Guest)
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            X-Previo-Authentication-Token: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8
+        
++ Response 200 (application/json)
+    + Attributes (GuestCheckIn)
+    
++ Response 400 (application/json)
+    + Attributes (Error)
+
+### Check out [PUT /reservation/checkOut]
+
+`In development`
+
++ Request (application/json)
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            X-Previo-Authentication-Token: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8
+
++ Response 200 (application/json)
+    + Attributes (Reservation)
+    
++ Response 400 (application/json)
+    + Attributes (Error)
+    
++ Response 401 (application/json)
+    + Attributes (AuthTimeoutError)
+
+### Post review [POST /reservation/review]
+
+`In development`
 
 + Request (application/json)
     + Attributes (Review)
@@ -96,6 +159,7 @@ HOST: https://api.previo.cz/app/
     
             Accept-Language: cs
             X-Previo-App-ID: 3
+            X-Previo-Authentication-Token: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8
             
 + Response 200 (application/json)
     + Attributes (Review)
@@ -103,18 +167,21 @@ HOST: https://api.previo.cz/app/
 + Response 400 (application/json)
     + Attributes (Error)
 
++ Response 401 (application/json)
+    + Attributes (AuthTimeoutError)
+    
 ## Hotel [/hotel]
 
-### Get hotel info [GET /hotel{?resId}]
+### Get hotel info [GET /hotel]
 
-+ Parameters
-    + resId: 2345 (string,required)
+`In development`
 
-+ Request
++ Request (application/json)
     + Headers
     
             Accept-Language: cs
             X-Previo-App-ID: 3
+            X-Previo-Authentication-Token: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8
             
 + Response 200 (application/json)
     + Attributes (Hotel)
@@ -122,87 +189,70 @@ HOST: https://api.previo.cz/app/
 + Response 404 (application/json) 
     + Attributes (Error)
 
-### Get places around [GET /hotel/place{?hotId}]
+### Get places around [GET /hotel/place]
 
-+ Parameters
-    + hotId: 2345 (number,required)
+`In development`
 
-+ Request
++ Request (application/json)
     + Headers
     
             Accept-Language: cs
             X-Previo-App-ID: 3
+            X-Previo-Authentication-Token: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8
             
 + Response 200 (application/json)
     + Attributes (array[Place])
 
-## Check-in [/reservation/check-in{?gueId}]
-
-+ Parameters
-    + gueId: 83618 (number,required) - The unique identifier for guest
-
-### Check-in [PUT]
-
-+ Request (application/json)
-    + Attributes (Guest)
-    + Headers
-    
-            Accept-Language: cs
-            X-Previo-App-ID: 3    
-            
-+ Response 200 (application/json)
-    + Attributes (Guest)
-    
-+ Response 400 (application/json)
-    + Attributes (Error)
-
-## Check-out [/reservation/check-out{?resId}]
-
-+ Parameters
-    + resId: 83618 (number,required) - The unique identifier for reservation
-
-### Check-out [PUT /reservation/check-out{?resId}]
-
-+ Request
-    + Headers
-    
-            Accept-Language: cs
-            X-Previo-App-ID: 3
-            
-+ Response 200 (application/json)
-    + Attributes (Reservation)
-    
-+ Response 400 (application/json)
-    + Attributes (Error)
-
-## Hotel bill [/account{?resId}]
+## Hotel account [/account]
 
 ### Account [GET]
 
-+ Request
+`In development`
+
++ Request (application/json)
     + Headers
     
             Accept-Language: cs
             X-Previo-App-ID: 3
-            
-+ Parameters
-    + resId: 8372 - The unique identifier for reservation
+            X-Previo-Authentication-Token: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8
 
 + Response 200 (application/json)
     + Attributes (Account)
 
-## Services [/services/]
++ Response 401 (application/json)
+    + Attributes (AuthTimeoutError)
 
-### Services list [GET]
+## Services [/service]
 
-+ Request
+### Services list [GET /service]
+
+`In development`
+
++ Request (application/json)
     + Headers
     
             Accept-Language: cs
             X-Previo-App-ID: 3
+            X-Previo-Authentication-Token: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8
             
 + Response 200 (application/json)
     + Attributes (array[Service])
+
+## System [/system]
+
+### Code books [GET /system/codeBook]
+
+`In development`
+
++ Request (application/json)
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            X-Previo-Authentication-Token: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8
+            
++ Response 200 (application/json)
+    + Attributes (CodeBook)
 
 ## Data Structure
 
@@ -211,6 +261,15 @@ HOST: https://api.previo.cz/app/
 + error: Failed to get data (string,required)
 + message: Nepodařilo se získat data (string,required)
 
+## AuthError
++ code: 402 (number,required)
++ error: Failed to authenticate pin code (string,required)
++ message: Nepodařilo se ověřit pin (string,required)
+
+## AuthTimeoutError
++ code: 401 (number,required)
++ error: Authentication token expired (string,required)
+
 ## Review
 + isRecommended: true (boolean,required)
 + service: 2 (number, optional) - Services (1 to 5)
@@ -218,9 +277,13 @@ HOST: https://api.previo.cz/app/
 + clean: 1 (number, required) - Cleanness (1 to 5)
 + comfort: 2 (number, required) - Comfort (1 to 5)
 + ratio: 4 (number, required) - Price / value ratio (1 to 5)
-+ positive: Yo mama (string,optional)
-+ negative: Yo mama (string,optional)
-+ private: Yo mama (string,optional)
++ positiveMessage: Yo mama (string,optional)
++ negativeMessage: Yo mama (string,optional)
++ privateMessage: Yo mama (string,optional)
+
+## Authentication
++ token: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8 (string,required) - 64 chars long authentication token
++ expiration: `2017-07-02T06:55:00` (string, required) - ISO 8601
 
 ## Reservation
 + resId: 1235 (number,required) - The unique identifier for reservation
@@ -228,35 +291,54 @@ HOST: https://api.previo.cz/app/
 + hasReview: false (boolean, required) - true if user already reviewed this reservation
 + code: ABCDEF (string,required)
 + commissions (array[Commission])
-+ contactPerson (ContactPerson,optional)
-+ voucher: ABCDDEDS (string, optional)
-+ note: Bar bar (string,optional)
++ contactPerson (ContactPerson, optional)
++ voucher: ABCDDEDS (string, required)
++ note: Bar bar (string, optional)
 
 ## Commission
 + comId: 123456 (number,required) - The unique identifier for commission
++ cosId: 1 (number,required) - The unique identifier for commission status (ReservationStatus)
 + termFrom: `2017-07-02T06:55:00` (string,required) - ISO 8601
 + termTo: `2017-07-02T06:55:00` (string,required) - ISO 8601
 + isCheckIn: true (boolean, required) - If all guests check-in
 + isCheckOut: false (boolean, required) - If all guests check-out
-+ status: 1 (number,required) - The unique identifier for reservation status (ReservationStatus)
-+ room: Moderní ubytování s příjemnou postelí (string,optional) - Name of room
-+ roomKind: Dvoulůžkový (string,required) - Name of room kind
-+ guests (array[Guest],optional)
++ room: Moderní ubytování s příjemnou postelí (string, required) - Name of room
++ roomKind: Dvoulůžkový (string, required) - Name of room kind
++ guests (array[Guest], optional)
 
 ## Guest
 + gueId: 1233 (number,required) - The unique identifier for guest
-+ name: Radim Vaculik (string,optional)
++ firstName: Radim (string,optional)
++ lastName: Vaculik (string,optional)
 + email: radim@vaculik.cz (string,optional)
 + phone: +420421123987 (string,optional)
-+ guaId: 1 (number,optional) - The unique identifier for guest category (GuestCategory)
++ guaId: 1 (number, required) - The unique identifier for guest category (GuestCategory)
 + isRecreation: true (boolean,required)
 + birthDate: `2017-01-01T00:00:00` (string,optional) - ISO 8601
++ birthPlace: London (string, optional)
++ gender: 1 (number, optional) - The unique identifier for gender (1 man 2 woman 3 not defined)
++ identity (Identity, optional) - Identity of guest
++ nationalities: 1 (array[number]) - Guest nationality country ids
++ address (AddressGuest, optional)
+
+## GuestCheckIn
++ gueId: 1233 (number,required) - The unique identifier for guest
++ firstName: Radim (string,required)
++ lastName: Vaculik (string,required)
++ email: radim@vaculik.cz (string,required)
++ phone: +420421123987 (string,required)
++ guaId: 1 (number, required) - The unique identifier for guest category (GuestCategory)
++ isRecreation: true (boolean,required)
++ birthDate: `2017-01-01T00:00:00` (string,required) - ISO 8601
 + birthPlace: London (string, required)
-+ genId: 1 (number,optional) - The unique identifier for gender (Gender)
-+ identity: MUJPASNUMBER (string,optional)
-+ guiId: 1 (number,optional) - The unique identifier for identity type (IdentityType)
-+ natId: 1 (number, required) - The unique identifier for nationality
-+ address (Address,optional)
++ gender: 1 (number, required) - The unique identifier for gender (1 man 2 woman 3 not defined)
++ identity (Identity, required) - Identity of guest
++ nationality: 1 (array[number]) - Guest nationality country ids
++ address (AddressGuestCheckIn, required)
+
+## Identity
++ number: N5646645 (string,optional)
++ type: 1 (number,optional) - 1 ID card, 2 passport, 3 driving license, 4 permanent residence
 
 ## ContactPerson
 + name: Radim Vaculik (string,optional)
@@ -269,38 +351,53 @@ HOST: https://api.previo.cz/app/
 + address (Address,required)
 + url: http://www.hoteljanacek.cz (string,optional)
 + phone: +420251613924 (string,optional)
-+ email: info@previo.cz (string,optional)
++ email: info@previo.cz (string,required)
 + arrival: 15:00:00 (string,required)
 + departure: 10:00:00 (string,required)
-+ shortDescription: In as name to here them deny wise this. As rapid woody my he me which. Men but they fail shew just wish next put. Led all visitor musical calling nor her.  (string,required)
-+ longDescription: In as name to here them deny wise this. As rapid woody my he me which. Men but they fail shew just wish next put. Led all visitor musical calling nor her. Within coming figure sex things are. Pretended concluded did repulsive education smallness yet yet described. Had country man his pressed shewing. No gate dare rose he. Eyes year if miss he as upon.  (string,required)
++ shortDescription: In as name to here them deny wise this. As rapid woody my he me which. Men but they fail shew just wish next put. Led all visitor musical calling nor her.  (string, optional)
++ longDescription: In as name to here them deny wise this. As rapid woody my he me which. Men but they fail shew just wish next put. Led all visitor musical calling nor her. Within coming figure sex things are. Pretended concluded did repulsive education smallness yet yet described. Had country man his pressed shewing. No gate dare rose he. Eyes year if miss he as upon.  (string, optional)
 + openingHours (array[OpeningHour])
 + accommodation (Accommodation, required)
 + wellness (Wellness, optional)
 + restaurant (Restaurant, optional)
 + primaryColor: #59b553 (string,required)
 + logo (Logo, required) - Hotel logo
-+ images (array[Image]) - Photo of hotel
++ Photos (array[Photo]) - Photos of hotel from main gallery in Previo
 
-## Address
+## AddressGuestCheckIn
++ street: Panska 6 (string, required)
++ streetNumber: 6 (string, required)
++ city: Brno (string, required)
++ zip: 60200 (string, required)
++ couId: 1 (number, required) - The unique identifier for country
+
+## AddressGuest
 + street: Panska 6 (string, optional)
++ streetNumber: 6 (string, optional)
 + city: Brno (string,optional)
 + zip: 60200 (string,optional)
-+ couId: 1 (number,optional) - The unique identifier for country (Country)
-+ lat: 49.01235 (number,optional)
-+ lon: 16.56454 (number,optional)
++ couId: 1 (number,required) - The unique identifier for country
+
+## Address
++ street: Panska (string, required)
++ streetNumber: 6 (string, optional)
++ city: Brno (string, required)
++ zip: 60200 (string, required)
++ couId: 1 (number, required) - The unique identifier for country
++ lat: 49.01235 (number, optional)
++ lon: 16.56454 (number, optional)
 
 ## Accommodation
 + title: Accommodation hotel Brno (string, required)
 + shortDescription: Bla bla Accommodation (string, required)
 + longDescription: Meh meh Accommodation (string, optional)
-+ images (array[Image]) - Photo of hotel accommodation
++ Photos (array[Photo]) - Photo of hotel accommodation
 
 ## Wellness
 + title: Wellness hotel Brno (string, required)
 + shortDescription: Sussex dej si deset result matter any end see. It speedily me addition weddings vicinity in pleasure. Happiness commanded an conveying breakfast in. Regard her say warmly elinor. (string, required)
 + longDescription: Scarcely on striking packages by so property in delicate. Up or well must less rent read walk so be. Easy sold at do hour sing spot. Any meant has cease too the decay. Since party burst am it match. By or blushes between besides offices noisier as. Sending do brought winding compass in. Paid day till shed only fact age its end. (string, optional)
-+ images (array[Image]) - Photo of wellness
++ Photos (array[Photo]) - Photo of wellness
 
 ## Restaurant
 + description: Meh meh (string,required)
@@ -313,7 +410,7 @@ HOST: https://api.previo.cz/app/
 ## MenuItem 
 + name: Steak (string, required)
 + price: 100.00 (number, required)
-+ currency: czk (string,required) - ISO 4217
++ curId: 1 (string, required) - The unique identifier for currency
 
 ## OpeningHour
 + name: Restaurant (string, required)
@@ -326,29 +423,27 @@ HOST: https://api.previo.cz/app/
 
 ## Account
 + resId: 1235 (number,required) - The unique identifier for reservation (Reservation)
-+ total: 129.30 (number,required)
-+ currency: czk (string, required) - ISO 4217
-+ payUrl: https://webpay.url.cz (string, required)
 + groupAccount (GroupAccount)
 + roomAccounts (array[RoomAccount])
 
 ## GroupAccount
 + total: 100.00 (number,required)
-+ currency: czk (string, required) - ISO 4217
-+ payUrl: https://webpay.url.cz (string, required)
++ paid: 50.00 (number, required) 
++ curId: 1 (string, required) - The unique identifier for currency
 + items (array[AccountItem])
 
 ## RoomAccount
 + comId: 12345 (number,required) - The unique identifier for commission (Commission)
 + total: 100.00 (number,required)
-+ currency: czk (string, required) - ISO 4217
-+ payUrl: https://webpay.url.cz (string, required)
++ paid: 50.00 (number, required) 
++ curId: 1 (string, required) - The unique identifier for currency
 + items (array[AccountItem])
 
 ## AccountItem
 + coaId: 342 (number, required) - The unique identifier for account item
 + name: Fried Onion Burger (string, required)
-+ price: 345.23 (number, required) - Price of item (price * count)
++ price: 345.23 (number, required) - Price of one item
++ count: 3 (number, required) - Count of items
 + paid: 100.50 (number, required)
 
 ## Place
@@ -356,17 +451,27 @@ HOST: https://api.previo.cz/app/
 + pltId: 1 (number, required) - The unique identifier for place type (PlaceType)
 + isRecommended: true (boolean, required) - Show place in slider
 + title: SpaceX Launch and Landing Control Center (string, required) 
-+ description: The SpaceX bid was for exclusive use of the launch complex to ... and control systems with substantial new plumbing for a variety of (string, optional)
-+ photo (Image, optional)
-+ address (Address, required)
++ description: The SpaceX bid was for exclusive use of the launch complex to ... and control systems with substantial new plumbing for a variety of (string, required)
++ Photo (Photo, optional)
++ address (AddressPlace, optional)
+
+## AddressPlace
++ street: Panska (string, optional)
++ streetNumber: 6 (string, optional)
++ city: Brno (string, optional)
++ zip: 60200 (string, optional)
++ couId: 1 (number, required) - The unique identifier for country
++ lat: 49.01235 (number, optional)
++ lon: 16.56454 (number, optional)
 
 ## Service 
 + serId: 31 (number, required) -  The unique identifier for service
 + name: Breakfast in bed (string, required) - Title of service
 + description: The SpaceX bid was for exclusive use of the launch complex to ... and control systems with substantial new plumbing for a variety of (string, optional)
 + price: 345.23 (number, required) - Price of service
-+ currency: czk (string, required) - ISO 4217
-+ photo (Image, optional)
++ curId: 1 (string, required) - The unique identifier for currency
++ unit: /pcs (string, required) - Price unit: per room, per person, per item, per night, per person/nigt, per room/night
++ Photo (Photo, optional)
 
 ## GuestCategory
 + guaId: 1 (number, required)
@@ -374,12 +479,29 @@ HOST: https://api.previo.cz/app/
 + ageFrom: 0 (number, required)
 + ageTo: 6 (number, required)
 
+## CodeBook
++ commissionStatuses (array[CommisionStatus]) - Array of commission status
++ placeTypes (array[PlaceType]) - Array of type of places
++ currencies (array[Currency]) -  Array of currency
+
+## CommisionStatus
++ cosId: 1 (number,required) - The unique identifier for commision status
++ name: Option (string, required) - Name of commission status
+
+## PlaceType
++ topId: 1 (number, required) - The unique identifier for place type
++ name: Nature (string, required) - Name of commission status
+
+## Currency
++ curId: 1 (number, required) - The unique identifier for currency
++ name: EUR (string, required) - Name of currency (ISO 4217)
+
 ## Logo
 + url: `https://ihg.scene7.com/is/image/ihg/HI_logo_LVP_@2x` (string, required)
 + height: 95 (number, required) - In pixel
 + width: 335 (number, required) - In pixel
 
-## Image
+## Photo
 + url: `https://www.demilked.com/magazine/wp-content/uploads/2014/12/norway-landscape-photography-scandinavian-nature-4.jpg` (string, required)
 + height: 720 (number, required) - In pixel
 + width: 960 (number, required) - In pixel
