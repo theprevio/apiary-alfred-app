@@ -50,7 +50,7 @@ HOST: https://api.previo.cz/app/
 
 ## Authentication [/authentication]
 
-### Get authentication token [GET /authentication{?code}{?device}]
+### Get authentication token [GET /authentication{?code}]
 
 `In development`
 
@@ -59,11 +59,10 @@ HOST: https://api.previo.cz/app/
 
             Accept-Language: cs
             X-Previo-App-ID: 3
-            User-Agent: iPhoneX
+            User-Agent: iPhoneX - Model name of user device
             
 + Parameters
     + code: ABC123 (string,required) - Unique reservation or commission identifier, 6 capital chars and numbers
-    + device: iPhone X (string,required) - Model of user device (iPhone X, Google Pixel 2)
     
 + Response 200 (application/json)
     + Attributes (Authentication)
