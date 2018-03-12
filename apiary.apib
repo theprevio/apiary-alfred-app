@@ -1,7 +1,7 @@
 FORMAT: 1A
 HOST: https://api.previo.cz/app/
 
-# Alfred app API
+# API - Alfred app
 
 ## Notification - OneSignal
  - On login
@@ -50,7 +50,7 @@ HOST: https://api.previo.cz/app/
 
 ## Authentication [/authentication]
 
-### Get authentication token [GET /authentication{?code}]
+### Get authentication token [GET /authentication{?code}{?device}]
 
 `In development`
 
@@ -62,6 +62,7 @@ HOST: https://api.previo.cz/app/
             
 + Parameters
     + code: ABC123 (string,required) - Unique reservation or commission identifier, 6 capital chars and numbers
+    + device: iPhone X (string,required) - Model of user device (iPhone X, Google Pixel 2)
     
 + Response 200 (application/json)
     + Attributes (Authentication)
@@ -91,7 +92,7 @@ HOST: https://api.previo.cz/app/
 + Response 401 (application/json)
     + Attributes (AuthTimeoutError)
 
-### Cancel reservation [GET /reservation/cancel{?resId}]
+### Cancel reservation [GET /reservation/cancel]
 
 `In development`
 
@@ -101,13 +102,9 @@ HOST: https://api.previo.cz/app/
             Accept-Language: cs
             X-Previo-App-ID: 3
             X-Previo-Authentication-Token: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8
-            
-+ Parameters
-    + resId: 2345 (string,required)
     
 + Response 200 (application/json)
-    + Attributes (Reservation)
-    
+
 + Response 400 (application/json)
     + Attributes (Error)
 
@@ -116,7 +113,7 @@ HOST: https://api.previo.cz/app/
 `In development`
 
 + Request (application/json)
-    + Attributes (Guest)
+    + Attributes (GuestCheckIn)
     + Headers
     
             Accept-Language: cs
@@ -162,7 +159,7 @@ HOST: https://api.previo.cz/app/
             X-Previo-Authentication-Token: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8
             
 + Response 200 (application/json)
-    + Attributes (Review)
+    + Attributes (Success)
     
 + Response 400 (application/json)
     + Attributes (Error)
@@ -189,7 +186,7 @@ HOST: https://api.previo.cz/app/
 + Response 404 (application/json) 
     + Attributes (Error)
 
-### Get places around [GET /hotel/place]
+### Get attractions around [GET /hotel/attraction]
 
 `In development`
 
@@ -201,7 +198,7 @@ HOST: https://api.previo.cz/app/
             X-Previo-Authentication-Token: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8
             
 + Response 200 (application/json)
-    + Attributes (array[Place])
+    + Attributes (array[Attraction])
 
 ## Hotel account [/account]
 
@@ -270,6 +267,10 @@ HOST: https://api.previo.cz/app/
 + code: 401 (number,required)
 + error: Authentication token expired (string,required)
 
+## Success 
++ title: Data saved (string,required)
++ message: Data was successfully saved (string,required)
+
 ## Review
 + isRecommended: true (boolean,required)
 + service: 2 (number, optional) - Services (1 to 5)
@@ -289,7 +290,6 @@ HOST: https://api.previo.cz/app/
 + resId: 1235 (number,required) - The unique identifier for reservation
 + hotId: 3209 (number,required) - The unique identifier for hotel
 + hasReview: false (boolean, required) - true if user already reviewed this reservation
-+ code: ABCDEF (string,required)
 + commissions (array[Commission])
 + contactPerson (ContactPerson, optional)
 + voucher: ABCDDEDS (string, required)
@@ -300,7 +300,7 @@ HOST: https://api.previo.cz/app/
 + cosId: 1 (number,required) - The unique identifier for commission status (ReservationStatus)
 + termFrom: `2017-07-02T06:55:00` (string,required) - ISO 8601
 + termTo: `2017-07-02T06:55:00` (string,required) - ISO 8601
-+ isCheckIn: true (boolean, required) - If all guests check-in
++ isCheckIn: false (boolean, required) - If all guests check-in
 + isCheckOut: false (boolean, required) - If all guests check-out
 + room: Moderní ubytování s příjemnou postelí (string, required) - Name of room
 + roomKind: Dvoulůžkový (string, required) - Name of room kind
@@ -356,13 +356,19 @@ HOST: https://api.previo.cz/app/
 + departure: 10:00:00 (string,required)
 + shortDescription: In as name to here them deny wise this. As rapid woody my he me which. Men but they fail shew just wish next put. Led all visitor musical calling nor her.  (string, optional)
 + longDescription: In as name to here them deny wise this. As rapid woody my he me which. Men but they fail shew just wish next put. Led all visitor musical calling nor her. Within coming figure sex things are. Pretended concluded did repulsive education smallness yet yet described. Had country man his pressed shewing. No gate dare rose he. Eyes year if miss he as upon.  (string, optional)
-+ openingHours (array[OpeningHour])
-+ accommodation (Accommodation, required)
-+ wellness (Wellness, optional)
-+ restaurant (Restaurant, optional)
++ restaurants (array[Restaurant])
++ wellness (array[Wellness])
++ sportsGrounds (array[SportsGround]
++ conferenceRooms (array[ConferenceRoom])
 + primaryColor: #59b553 (string,required)
 + logo (Logo, required) - Hotel logo
-+ Photos (array[Photo]) - Photos of hotel from main gallery in Previo
++ photos (array[Photo], required) - Photos of hotel from main gallery in Previo
++ cancellationPolicies (array[CancelationPolicy]) - Cancellation policy for reservation in hotel
+
+## CancelationPolicy
++ period: 48 (number, required) - How many hours before reservation cancellation is this condition valid
++ ammount: 2 (number, required) - The amount of the fee in selected unit
++ unit: 1 (number, required) - The unit of the cancellation fee
 
 ## AddressGuestCheckIn
 + street: Panska 6 (string, required)
@@ -391,35 +397,46 @@ HOST: https://api.previo.cz/app/
 + title: Accommodation hotel Brno (string, required)
 + shortDescription: Bla bla Accommodation (string, required)
 + longDescription: Meh meh Accommodation (string, optional)
-+ Photos (array[Photo]) - Photo of hotel accommodation
-
-## Wellness
-+ title: Wellness hotel Brno (string, required)
-+ shortDescription: Sussex dej si deset result matter any end see. It speedily me addition weddings vicinity in pleasure. Happiness commanded an conveying breakfast in. Regard her say warmly elinor. (string, required)
-+ longDescription: Scarcely on striking packages by so property in delicate. Up or well must less rent read walk so be. Easy sold at do hour sing spot. Any meant has cease too the decay. Since party burst am it match. By or blushes between besides offices noisier as. Sending do brought winding compass in. Paid day till shed only fact age its end. (string, optional)
-+ Photos (array[Photo]) - Photo of wellness
++ photos (array[Photo]) - Photo of hotel accommodation
 
 ## Restaurant
-+ description: Meh meh (string,required)
-+ menuCategories (array[MenuCategory])
++ name: Coyote Diners & Bar (string, required)
++ description: `Restaurace zabývající se čistě americkou kuchyní za pomocí jednoduchosti přípravy a kvality surovin. Těšit se můžete na pokrmy z grilu, originální domácí moučníky či na klasické burgery. Nabídka koktejlů, rozvoz jídla. TV, Wi-Fi, možný vstup se psy, letní zahrádka, parkoviště.` (string, optional)
++ openingHours (array[OpeningHour])
++ photos (array[Photo]) - Array of resturant photos
++ menuUrl: http://www.pizzawest.cz/docs/menu-cze.pdf (string, optional) - Restaurants menu in PDF
++ dailyMenuUrl: http://www.pizzawest.cz/docs/menu-cze.pdf (string, optional) - Restaurants special menu of the day
 
-## MenuCategory
-+ name: Hlavni jidla (string,required)
-+ menuItems (array[MenuItem])
+## Wellness
++ name: Pytloun Wellness (string, required)
++ description: `Pytloun Wellness *** Liberec se nachází v klidné lokalitě, přesto v blízkosti centra města Liberec. Nedaleko hotelu můžete navštívit turisticky atraktivní místa, mezi která patří i zábavní centrum Babylon s aquaparkem, IQparkem a lunaparkem. V zimě zdejší ubytování ocení zejména milovníci lyžování. Pouhé tři kilometry od hotelu je Skiareál Ještěd, který uspokojí i náročné lyžaře. Hotel disponuje hezkými pokoji i apartmány. Všichni hosté zde mohou využívat kuchyňku. Samozřejmostí je bezdrátové připojení k internetu v celém objektu.` (string, optional)
++ openingHours (array[OpeningHour])
++ photos (array[Photo]) - Array of wellness photos
 
-## MenuItem 
-+ name: Steak (string, required)
-+ price: 100.00 (number, required)
-+ curId: 1 (string, required) - The unique identifier for currency
+## SportsGround
++ name: Badminton (string, required)
++ description: `Badminton je individuální olympijský raketový sport. Jeho přímým předchůdcem je indická poona. Při hře dva protivníci (nebo dvě dvojice) odpalují přes síť pomocí rakety míček (košík) a snaží se donutit protivníka k chybě.` (string, optional)
++ openingHours (array[OpeningHour])
++ photos (array[Photo]) - Array of sportsGround photos
+
+## ConferenceRoom
++ name: Badminton (string, required)
++ description: `Balkónem s výhledem do zahrady vyniká první konferenční místnost čtyřhvězdičkového Hotelu U Tří korunek v Praze. Místnost díky své rozloze 70m2 nabízí variabilní uspořádání přesně podle požadavků zákazníka.` (string, optional)
++ openingHours (array[OpeningHour])
++ photos (array[Photo]) - Array of conference room photos
 
 ## OpeningHour
-+ name: Restaurant (string, required)
-+ description: The times when a business, such as a bar, restaurant, shop, or bank, is open for people to use it (string, optional)
-+ openingHourItems (array[OpeningHourItem])
++ mon (array[OpeningHourInterval]) - Monday (Closed if array empty)
++ tue (array[OpeningHourInterval]) - Tuesday (Closed if array empty)
++ wed (array[OpeningHourInterval]) - Wednesday (Closed if array empty)
++ thu (array[OpeningHourInterval]) - Thursday (Closed if array empty)
++ fri (array[OpeningHourInterval]) - Friday (Closed if array empty)
++ sat (array[OpeningHourInterval]) - Saturday (Closed if array empty)
++ sun (array[OpeningHourInterval]) - Sunday (Closed if array empty)
 
-## OpeningHourItem
-+ day: `Monday - Tuesday` (string,required)
-+ value: `0:00 - 24:00` (string,optional) - If value is null, service is close
+## OpeningHourInterval
++ from: `08:00` (string, required)
++ to: `22:00` (string, required)
 
 ## Account
 + resId: 1235 (number,required) - The unique identifier for reservation (Reservation)
@@ -446,16 +463,16 @@ HOST: https://api.previo.cz/app/
 + count: 3 (number, required) - Count of items
 + paid: 100.50 (number, required)
 
-## Place
-+ plaId: 322 (number, required) - The unique identifier for place
-+ pltId: 1 (number, required) - The unique identifier for place type (PlaceType)
+## Attraction
++ attId: 322 (number, required) - The unique identifier for attraction
++ atyId: 1 (number, required) - The unique identifier for attraction type (AttractionType)
 + isRecommended: true (boolean, required) - Show place in slider
 + title: SpaceX Launch and Landing Control Center (string, required) 
 + description: The SpaceX bid was for exclusive use of the launch complex to ... and control systems with substantial new plumbing for a variety of (string, required)
-+ Photo (Photo, optional)
-+ address (AddressPlace, optional)
++ photo (Photo, optional)
++ address (AddressAttraction, required)
 
-## AddressPlace
+## AddressAttraction
 + street: Panska (string, optional)
 + streetNumber: 6 (string, optional)
 + city: Brno (string, optional)
@@ -471,7 +488,7 @@ HOST: https://api.previo.cz/app/
 + price: 345.23 (number, required) - Price of service
 + curId: 1 (string, required) - The unique identifier for currency
 + unit: /pcs (string, required) - Price unit: per room, per person, per item, per night, per person/nigt, per room/night
-+ Photo (Photo, optional)
++ photo (Photo, optional)
 
 ## GuestCategory
 + guaId: 1 (number, required)
@@ -481,16 +498,16 @@ HOST: https://api.previo.cz/app/
 
 ## CodeBook
 + commissionStatuses (array[CommisionStatus]) - Array of commission status
-+ placeTypes (array[PlaceType]) - Array of type of places
++ AttractionTypes (array[AttractionType]) - Array of type of attractions
 + currencies (array[Currency]) -  Array of currency
 
 ## CommisionStatus
 + cosId: 1 (number,required) - The unique identifier for commision status
 + name: Option (string, required) - Name of commission status
 
-## PlaceType
-+ topId: 1 (number, required) - The unique identifier for place type
-+ name: Nature (string, required) - Name of commission status
+## AttractionType
++ atyId: 1 (number, required) - The unique identifier for attraction type
++ name: Nature (string, required) - Name of attraction type
 
 ## Currency
 + curId: 1 (number, required) - The unique identifier for currency
