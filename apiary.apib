@@ -59,6 +59,7 @@ HOST: https://api.previo.cz/app/
 
             Accept-Language: cs
             X-Previo-App-ID: 3
+            User-Agent: iPhoneX
             
 + Parameters
     + code: ABC123 (string,required) - Unique reservation or commission identifier, 6 capital chars and numbers
@@ -465,12 +466,15 @@ HOST: https://api.previo.cz/app/
 
 ## Attraction
 + attId: 322 (number, required) - The unique identifier for attraction
-+ atyId: 1 (number, required) - The unique identifier for attraction type (AttractionType)
++ attractionTypes (array[AttractionTypeId], required)
 + isRecommended: true (boolean, required) - Show place in slider
-+ title: SpaceX Launch and Landing Control Center (string, required) 
++ name: SpaceX Launch and Landing Control Center (string, required) 
 + description: The SpaceX bid was for exclusive use of the launch complex to ... and control systems with substantial new plumbing for a variety of (string, required)
 + photo (Photo, optional)
 + address (AddressAttraction, required)
+
+## AttractionTypeId
++ atyId: 1 (number) - Id of attraction type
 
 ## AddressAttraction
 + street: Panska (string, optional)
