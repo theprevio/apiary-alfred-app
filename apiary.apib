@@ -234,6 +234,9 @@ HOST: https://api.previo.cz/app/
             
 + Response 200 (application/json)
     + Attributes (array[Service])
+    
++ Response 505 (application/json)
+    + Attributes (ReservationEndedError)
 
 ## System [/system]
 
@@ -266,6 +269,12 @@ HOST: https://api.previo.cz/app/
 ## AuthTimeoutError
 + code: 401 (number,required)
 + error: Authentication token expired (string,required)
++ message: Vypršela platnost autorizačního tokenu (string,required)
+
+## ReservationEndedError
++ code: 505 (number,required)
++ error: Reservation ended (string,required)
++ message (string, nullable)
 
 ## Success 
 + title: Data saved (string,required)
@@ -318,6 +327,8 @@ HOST: https://api.previo.cz/app/
 + birthPlace: London (string, optional)
 + gender: 1 (number, optional) - The unique identifier for gender (1 man 2 woman 3 not defined)
 + identity (Identity, optional) - Identity of guest
++ visa: HD55AIJCS9-4GD-9S (string, optional) - Visa od guest
++ numberPlate: 7A7 5070 (string, optional) - Number plate od guest`s car
 + nationalities: 1 (array[number]) - Guest nationality country ids
 + address (AddressGuest, optional)
 
@@ -356,6 +367,7 @@ HOST: https://api.previo.cz/app/
 + departure: 10:00:00 (string,required)
 + shortDescription: In as name to here them deny wise this. As rapid woody my he me which. Men but they fail shew just wish next put. Led all visitor musical calling nor her.  (string, optional)
 + longDescription: In as name to here them deny wise this. As rapid woody my he me which. Men but they fail shew just wish next put. Led all visitor musical calling nor her. Within coming figure sex things are. Pretended concluded did repulsive education smallness yet yet described. Had country man his pressed shewing. No gate dare rose he. Eyes year if miss he as upon.  (string, optional)
++ accommodation (Accommodation, required)
 + restaurants (array[Restaurant])
 + wellness (array[Wellness])
 + sportsGrounds (array[SportsGround]
@@ -376,6 +388,8 @@ HOST: https://api.previo.cz/app/
 + city: Brno (string, required)
 + zip: 60200 (string, required)
 + couId: 1 (number, required) - The unique identifier for country
++ lat: 49.01235 (number, optional)
++ lon: 16.56454 (number, optional)
 
 ## AddressGuest
 + street: Panska 6 (string, optional)
@@ -383,6 +397,8 @@ HOST: https://api.previo.cz/app/
 + city: Brno (string,optional)
 + zip: 60200 (string,optional)
 + couId: 1 (number,required) - The unique identifier for country
++ lat: 49.01235 (number, optional)
++ lon: 16.56454 (number, optional)
 
 ## Address
 + street: Panska (string, required)
