@@ -146,6 +146,30 @@ HOST: https://api.previo.cz/app/
 + Response 401 (application/json)
     + Attributes (AuthTimeoutError)
 
+### Pay [POST /reservation/pay{?resId}{?comId}]
+
+`In development - not implement at app site`
+
++ Request (application/json)
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            X-Previo-Authentication-Token: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8
+
++ Parameters
+    + resId: 23421 (number, optional) - Unique reservation identifier, if user want pay whole reservation
+    + comId: 93481 (number, optional) - Unique commission identifier, if user want pay one commision
+
++ Response 200 (application/json)
+    + Attributes (PayUrl)
+    
++ Response 400 (application/json)
+    + Attributes (Error)
+    
++ Response 401 (application/json)
+    + Attributes (AuthTimeoutError)
+
 ### Post review [POST /reservation/review]
 
 `In development`
@@ -515,6 +539,9 @@ HOST: https://api.previo.cz/app/
 + name: `Dítě do 6-ti let` (string, required)
 + ageFrom: 0 (number, required)
 + ageTo: 6 (number, required)
+
+## PayUrl
++ url: https://pay.csob.cz/gateway (string, required) - Pay url for pay reservation or one commission
 
 ## CodeBook
 + commissionStatuses (array[CommisionStatus]) - Array of commission status
