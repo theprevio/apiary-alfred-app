@@ -50,7 +50,7 @@ HOST: https://api.previo.cz/app/
 
 ## Authentication [/authentication]
 
-### Get authentication token [GET /authentication{?code}]
+### Get access token [GET /authentication/accessToken{?code}]
 
 `In development`
 
@@ -67,8 +67,27 @@ HOST: https://api.previo.cz/app/
 + Response 200 (application/json)
     + Attributes (Authentication)
     
-+ Response 402 (application/json) 
++ Response 400 (application/json) 
     + Attributes (AuthError)
+    
+### Refresh access token [GET /authentication/refreshToken{?refreshToken}]
+
+`In development`
+
++ Request (application/json)
+    + Headers
+
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            
++ Parameters
+    + refreshToken: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW (string,required) - The refresh token.
+    
++ Response 200 (application/json)
+    
++ Response 400 (application/json) 
+    + Attributes (AuthRefreshError)
 
 ## Reservation [/reservation]
 
@@ -81,7 +100,7 @@ HOST: https://api.previo.cz/app/
     
             Accept-Language: cs
             X-Previo-App-ID: 3
-            X-Previo-Authentication-Token: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
             
 + Response 200 (application/json)
     + Attributes (Reservation)
@@ -101,7 +120,7 @@ HOST: https://api.previo.cz/app/
     
             Accept-Language: cs
             X-Previo-App-ID: 3
-            X-Previo-Authentication-Token: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
     
 + Response 200 (application/json)
 
@@ -118,7 +137,7 @@ HOST: https://api.previo.cz/app/
     
             Accept-Language: cs
             X-Previo-App-ID: 3
-            X-Previo-Authentication-Token: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
         
 + Response 200 (application/json)
     + Attributes (GuestCheckIn)
@@ -135,7 +154,7 @@ HOST: https://api.previo.cz/app/
     
             Accept-Language: cs
             X-Previo-App-ID: 3
-            X-Previo-Authentication-Token: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
 
 + Response 200 (application/json)
     + Attributes (Reservation)
@@ -155,7 +174,7 @@ HOST: https://api.previo.cz/app/
     
             Accept-Language: cs
             X-Previo-App-ID: 3
-            X-Previo-Authentication-Token: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
 
 + Parameters
     + resId: 23421 (number, optional) - Unique reservation identifier, if user want pay whole reservation
@@ -180,7 +199,7 @@ HOST: https://api.previo.cz/app/
     
             Accept-Language: cs
             X-Previo-App-ID: 3
-            X-Previo-Authentication-Token: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
             
 + Response 200 (application/json)
     + Attributes (Success)
@@ -202,7 +221,7 @@ HOST: https://api.previo.cz/app/
     
             Accept-Language: cs
             X-Previo-App-ID: 3
-            X-Previo-Authentication-Token: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
             
 + Response 200 (application/json)
     + Attributes (Hotel)
@@ -219,7 +238,7 @@ HOST: https://api.previo.cz/app/
     
             Accept-Language: cs
             X-Previo-App-ID: 3
-            X-Previo-Authentication-Token: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
             
 + Response 200 (application/json)
     + Attributes (array[Attraction])
@@ -235,7 +254,7 @@ HOST: https://api.previo.cz/app/
     
             Accept-Language: cs
             X-Previo-App-ID: 3
-            X-Previo-Authentication-Token: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
 
 + Response 200 (application/json)
     + Attributes (Account)
@@ -254,7 +273,7 @@ HOST: https://api.previo.cz/app/
     
             Accept-Language: cs
             X-Previo-App-ID: 3
-            X-Previo-Authentication-Token: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
             
 + Response 200 (application/json)
     + Attributes (array[Service])
@@ -273,7 +292,7 @@ HOST: https://api.previo.cz/app/
     
             Accept-Language: cs
             X-Previo-App-ID: 3
-            X-Previo-Authentication-Token: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
             
 + Response 200 (application/json)
     + Attributes (CodeBook)
@@ -286,9 +305,13 @@ HOST: https://api.previo.cz/app/
 + message: Nepodařilo se získat data (string,required)
 
 ## AuthError
-+ code: 402 (number,required)
++ code: 400 (number,required)
 + error: Failed to authenticate pin code (string,required)
 + message: Nepodařilo se ověřit pin (string,required)
+
+## AuthRefreshError
++ code: 400 (number,required)
++ error: Failed to refresh access token (string,required)
 
 ## AuthTimeoutError
 + code: 401 (number,required)
@@ -316,8 +339,11 @@ HOST: https://api.previo.cz/app/
 + privateMessage: Yo mama (string,optional)
 
 ## Authentication
-+ token: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDWhnHnQCL8 (string,required) - 64 chars long authentication token
-+ expiration: `2017-07-02T06:55:00` (string, required) - ISO 8601
++ accessToken: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW (string,required) - Access token to be used when acessing resources.
++ tokenType: Bearer (string, required) - The type of the token issued - in this case it will allways be Bearer.
++ expiresIn: 3600 (number, required) - The lifetime in seconds of the access token.
++ refreshToken: 6T8pcDWhnHnQCL8wqvKM95c7e8HVcDW (string,required) - The refresh token, which can be used to obtain new access tokens.
+
 
 ## Reservation
 + resId: 1235 (number,required) - The unique identifier for reservation
