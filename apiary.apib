@@ -379,7 +379,7 @@ HOST: https://api.previo.cz/app/
 + identity (Identity, optional) - Identity of guest
 + visa: HD55AIJCS9-4GD-9S (string, optional) - Visa od guest
 + numberPlate: 7A7 5070 (string, optional) - Number plate od guest`s car
-+ nationalities: 1 (array[number]) - Guest nationality country ids
++ nationality: 1 (number, required) - Country id of guest nationality
 + address (AddressGuest, optional)
 
 ## GuestCheckIn
@@ -394,7 +394,7 @@ HOST: https://api.previo.cz/app/
 + birthPlace: London (string, required)
 + gender: 1 (number, required) - The unique identifier for gender (1 man 2 woman 3 not defined)
 + identity (Identity, required) - Identity of guest
-+ nationality: 1 (array[number]) - Guest nationality country ids
++ nationality: 1 (number, required) - Country id of guest nationality
 + address (AddressGuestCheckIn, required)
 
 ## Identity
