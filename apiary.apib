@@ -45,8 +45,8 @@ HOST: https://api.previo.cz/app/
 - `message`
 
 ## Deep Links
-- `pikolik://payment/success` - opens success dialog
-- `pikolik://payment/fail` - opens fail dialog
+- `alfred://payment/success` - opens success dialog
+- `alfred://payment/fail` - opens fail dialog
 
 ## Authentication [/authentication]
 
@@ -165,9 +165,9 @@ HOST: https://api.previo.cz/app/
 + Response 401 (application/json)
     + Attributes (AuthTimeoutError)
 
-### Pay [POST /reservation/pay{?resId}{?comId}]
+### Pay [POST /reservation/pay{?comId}{?groupAccount}]
 
-`In development - not implement at app site`
+`In development - not implement in app`
 
 + Request (application/json)
     + Headers
@@ -177,8 +177,8 @@ HOST: https://api.previo.cz/app/
             Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
 
 + Parameters
-    + resId: 23421 (number, optional) - Unique reservation identifier, if user want pay whole reservation
-    + comId: 93481 (number, optional) - Unique commission identifier, if user want pay one commision
+    + comId: 93481 (number, optional) - Unique commission identifier, if we want to pay one room account only
+    + groupAccount: true (boolean, optional) - Pay group account only if true
 
 + Response 200 (application/json)
     + Attributes (PayUrl)
@@ -341,9 +341,7 @@ HOST: https://api.previo.cz/app/
 ## Authentication
 + accessToken: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW (string,required) - Access token to be used when acessing resources.
 + tokenType: Bearer (string, required) - The type of the token issued - in this case it will allways be Bearer.
-+ expiresIn: 3600 (number, required) - The lifetime in seconds of the access token.
-+ refreshToken: 6T8pcDWhnHnQCL8wqvKM95c7e8HVcDW (string,required) - The refresh token, which can be used to obtain new access tokens.
-
++ refreshToken: 6T8pcDWhnHnQCL8wqvKM95c7e8HVcDW (string,required) - The refresh token, which can be used to obtain new access tokens.Re
 
 ## Reservation
 + resId: 1235 (number,required) - The unique identifier for reservation
@@ -470,8 +468,6 @@ HOST: https://api.previo.cz/app/
 + description: `Restaurace zabývající se čistě americkou kuchyní za pomocí jednoduchosti přípravy a kvality surovin. Těšit se můžete na pokrmy z grilu, originální domácí moučníky či na klasické burgery. Nabídka koktejlů, rozvoz jídla. TV, Wi-Fi, možný vstup se psy, letní zahrádka, parkoviště.` (string, optional)
 + openingHours (array[OpeningHour])
 + photos (array[Photo]) - Array of resturant photos
-+ menuUrl: http://www.pizzawest.cz/docs/menu-cze.pdf (string, optional) - Restaurants menu in PDF
-+ dailyMenuUrl: http://www.pizzawest.cz/docs/menu-cze.pdf (string, optional) - Restaurants special menu of the day
 
 ## Wellness
 + name: Pytloun Wellness (string, required)
@@ -567,7 +563,7 @@ HOST: https://api.previo.cz/app/
 + ageTo: 6 (number, required)
 
 ## PayUrl
-+ url: https://pay.csob.cz/gateway (string, required) - Pay url for pay reservation or one commission
++ url: https://booking.previo.cz/gate/request/51a8d26a289179e6aa193c0564fa525b/ (string, required) - Pay url for pay reservation or one commission
 
 ## CodeBook
 + commissionStatuses (array[CommisionStatus]) - Array of commission status
