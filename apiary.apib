@@ -443,7 +443,7 @@ HOST: https://api.previo.cz/app/
 + street: Panska 6 (string, optional)
 + streetNumber: 6 (string, optional)
 + city: Brno (string,optional)
-+ zip: 60200 (string,optional)
++ zip: 60200 (string,optional)array 
 + couId: 1 (number,required) - The unique identifier for country
 + lat: 49.01235 (number, optional)
 + lon: 16.56454 (number, optional)
@@ -466,25 +466,25 @@ HOST: https://api.previo.cz/app/
 ## Restaurant
 + name: Coyote Diners & Bar (string, required)
 + description: `Restaurace zabývající se čistě americkou kuchyní za pomocí jednoduchosti přípravy a kvality surovin. Těšit se můžete na pokrmy z grilu, originální domácí moučníky či na klasické burgery. Nabídka koktejlů, rozvoz jídla. TV, Wi-Fi, možný vstup se psy, letní zahrádka, parkoviště.` (string, optional)
-+ openingHours (array[OpeningHour])
++ openingHours (OpeningHour, optional)
 + photos (array[Photo]) - Array of resturant photos
 
 ## Wellness
 + name: Pytloun Wellness (string, required)
 + description: `Pytloun Wellness *** Liberec se nachází v klidné lokalitě, přesto v blízkosti centra města Liberec. Nedaleko hotelu můžete navštívit turisticky atraktivní místa, mezi která patří i zábavní centrum Babylon s aquaparkem, IQparkem a lunaparkem. V zimě zdejší ubytování ocení zejména milovníci lyžování. Pouhé tři kilometry od hotelu je Skiareál Ještěd, který uspokojí i náročné lyžaře. Hotel disponuje hezkými pokoji i apartmány. Všichni hosté zde mohou využívat kuchyňku. Samozřejmostí je bezdrátové připojení k internetu v celém objektu.` (string, optional)
-+ openingHours (array[OpeningHour])
++ openingHours (OpeningHour, optional)
 + photos (array[Photo]) - Array of wellness photos
 
 ## SportsGround
 + name: Badminton (string, required)
 + description: `Badminton je individuální olympijský raketový sport. Jeho přímým předchůdcem je indická poona. Při hře dva protivníci (nebo dvě dvojice) odpalují přes síť pomocí rakety míček (košík) a snaží se donutit protivníka k chybě.` (string, optional)
-+ openingHours (array[OpeningHour])
++ openingHours (OpeningHour, optional)
 + photos (array[Photo]) - Array of sportsGround photos
 
 ## ConferenceRoom
 + name: Badminton (string, required)
 + description: `Balkónem s výhledem do zahrady vyniká první konferenční místnost čtyřhvězdičkového Hotelu U Tří korunek v Praze. Místnost díky své rozloze 70m2 nabízí variabilní uspořádání přesně podle požadavků zákazníka.` (string, optional)
-+ openingHours (array[OpeningHour])
++ openingHours (OpeningHour, optional)
 + photos (array[Photo]) - Array of conference room photos
 
 ## OpeningHour
