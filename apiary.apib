@@ -527,16 +527,13 @@ HOST: https://api.previo.cz/app/
 
 ## Attraction
 + attId: 322 (number, required) - The unique identifier for attraction
-+ attractionTypes (array[AttractionTypeId], required)
++ attractionTypes: 1, 2 (array[number], required)
 + isRecommended: true (boolean, required) - Show place in slider
 + name: SpaceX Launch and Landing Control Center (string, required) 
 + description: The SpaceX bid was for exclusive use of the launch complex to ... and control systems with substantial new plumbing for a variety of (string, required)
 + photo (Photo, optional)
 + address (AddressAttraction, required)
 + distance: 2.1 (number, optional) - The linear distance from attraction to hotel (only if attraction has GPS provided
-
-## AttractionTypeId
-+ atyId: 1 (number) - Id of attraction type
 
 ## AddressAttraction
 + street: Panska (string, optional)
