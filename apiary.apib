@@ -292,8 +292,7 @@ HOST: https://api.previo.cz/app/
     
             Accept-Language: cs
             X-Previo-App-ID: 3
-            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
-            
+
 + Response 200 (application/json)
     + Attributes (CodeBook)
 
@@ -373,7 +372,7 @@ HOST: https://api.previo.cz/app/
 + isRecreation: true (boolean,required)
 + birthDate: `2017-01-01T00:00:00` (string,optional) - ISO 8601
 + birthPlace: London (string, optional)
-+ gender: 1 (number, optional) - The unique identifier for gender (1 man 2 woman 3 not defined)
++ genId: 1 (number, optional) - The unique identifier for gender (1 man 2 woman 3 not defined)
 + identity (Identity, optional) - Identity of guest
 + visa: HD55AIJCS9-4GD-9S (string, optional) - Visa od guest
 + numberPlate: 7A7 5070 (string, optional) - Number plate od guest`s car
@@ -390,14 +389,14 @@ HOST: https://api.previo.cz/app/
 + isRecreation: true (boolean,required)
 + birthDate: `2017-01-01T00:00:00` (string,required) - ISO 8601
 + birthPlace: London (string, required)
-+ gender: 1 (number, required) - The unique identifier for gender (1 man 2 woman 3 not defined)
++ genId: 1 (number, required) - The unique identifier for gender (1 man 2 woman 3 not defined)
 + identity (Identity, required) - Identity of guest
 + nationality: 1 (number, required) - Country id of guest nationality
 + address (AddressGuestCheckIn, required)
 
 ## Identity
 + number: N5646645 (string,optional)
-+ type: 1 (number,optional) - 1 ID card, 2 passport, 3 driving license, 4 permanent residence
++ guiId: 1 (number,optional) - 1 ID card, 2 passport, 3 driving license, 4 permanent residence
 
 ## ContactPerson
 + name: Radim Vaculik (string,optional)
@@ -566,6 +565,9 @@ HOST: https://api.previo.cz/app/
 + commissionStatuses (array[CommisionStatus]) - Array of commission status
 + attractionTypes (array[AttractionType]) - Array of type of attractions
 + currencies (array[Currency]) -  Array of currency
++ countries (array[Country]) - Array of country
++ genders (array[Gender]) - Array of gender
++ identityTypes (array[IdentityType]) - Array of identity types
 
 ## CommisionStatus
 + cosId: 1 (number,required) - The unique identifier for commision status
@@ -578,6 +580,18 @@ HOST: https://api.previo.cz/app/
 ## Currency
 + curId: 1 (number, required) - The unique identifier for currency
 + name: EUR (string, required) - Name of currency (ISO 4217)
+
+## Country
++ couId: 1 (number, required) - The unique identifier for country
++ name: Czech Republic - Name of country
+
+## Gender
++ genId: 1 (number, required) - The unique identifier for gender
++ name: Male (string, required) - Name of gender
+
+## IdentityType
++ guiId: 1 (number, required) - The unique identifier for guest identity type
++ name: Identity card (string, required) - Name of guest identity type
 
 ## Logo
 + url: `https://ihg.scene7.com/is/image/ihg/HI_logo_LVP_@2x` (string, required)
