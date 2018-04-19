@@ -346,7 +346,7 @@ HOST: https://api.previo.cz/app/
 + resId: 1235 (number,required) - The unique identifier for reservation
 + hotId: 3209 (number,required) - The unique identifier for hotel
 + hasReview: false (boolean, required) - true if user already reviewed this reservation
-+ commissions (array[Commission])
++ commissions (array[Commission], required)
 + contactPerson (ContactPerson, optional)
 + voucher: ABCDDEDS (string, required)
 + note: Bar bar (string, optional)
@@ -360,7 +360,7 @@ HOST: https://api.previo.cz/app/
 + isCheckOut: false (boolean, required) - If all guests check-out
 + room: Moderní ubytování s příjemnou postelí (string, required) - Name of room
 + roomKind: Dvoulůžkový (string, required) - Name of room kind
-+ guests (array[Guest], optional)
++ guests (array[Guest], required)
 
 ## Guest
 + gueId: 1233 (number,required) - The unique identifier for guest
@@ -415,14 +415,14 @@ HOST: https://api.previo.cz/app/
 + shortDescription: In as name to here them deny wise this. As rapid woody my he me which. Men but they fail shew just wish next put. Led all visitor musical calling nor her.  (string, optional)
 + longDescription: In as name to here them deny wise this. As rapid woody my he me which. Men but they fail shew just wish next put. Led all visitor musical calling nor her. Within coming figure sex things are. Pretended concluded did repulsive education smallness yet yet described. Had country man his pressed shewing. No gate dare rose he. Eyes year if miss he as upon.  (string, optional)
 + accommodation (Accommodation, required)
-+ restaurants (array[Restaurant])
-+ wellness (array[Wellness])
-+ sportsGrounds (array[SportsGround]
-+ conferenceRooms (array[ConferenceRoom])
++ restaurants (array[Restaurant], required)
++ wellness (array[Wellness], required)
++ sportsGrounds (array[SportsGround], required)
++ conferenceRooms (array[ConferenceRoom], required)
 + primaryColor: #59b553 (string,required)
 + logo (Logo, required) - Hotel logo
 + photos (array[Photo], required) - Photos of hotel from main gallery in Previo
-+ cancellationPolicies (array[CancelationPolicy]) - Cancellation policy for reservation in hotel
++ cancellationPolicies (array[CancelationPolicy], required) - Cancellation policy for reservation in hotel
 
 ## CancelationPolicy
 + period: 48 (number, required) - How many hours before reservation cancellation is this condition valid
@@ -460,40 +460,40 @@ HOST: https://api.previo.cz/app/
 + title: Accommodation hotel Brno (string, required)
 + shortDescription: Bla bla Accommodation (string, required)
 + longDescription: Meh meh Accommodation (string, optional)
-+ photos (array[Photo]) - Photo of hotel accommodation
++ photos (array[Photo], required) - Photo of hotel accommodation
 
 ## Restaurant
 + name: Coyote Diners & Bar (string, required)
 + description: `Restaurace zabývající se čistě americkou kuchyní za pomocí jednoduchosti přípravy a kvality surovin. Těšit se můžete na pokrmy z grilu, originální domácí moučníky či na klasické burgery. Nabídka koktejlů, rozvoz jídla. TV, Wi-Fi, možný vstup se psy, letní zahrádka, parkoviště.` (string, optional)
 + openingHours (OpeningHour, optional)
-+ photos (array[Photo]) - Array of resturant photos
++ photos (array[Photo], required) - Array of resturant photos
 
 ## Wellness
 + name: Pytloun Wellness (string, required)
 + description: `Pytloun Wellness *** Liberec se nachází v klidné lokalitě, přesto v blízkosti centra města Liberec. Nedaleko hotelu můžete navštívit turisticky atraktivní místa, mezi která patří i zábavní centrum Babylon s aquaparkem, IQparkem a lunaparkem. V zimě zdejší ubytování ocení zejména milovníci lyžování. Pouhé tři kilometry od hotelu je Skiareál Ještěd, který uspokojí i náročné lyžaře. Hotel disponuje hezkými pokoji i apartmány. Všichni hosté zde mohou využívat kuchyňku. Samozřejmostí je bezdrátové připojení k internetu v celém objektu.` (string, optional)
 + openingHours (OpeningHour, optional)
-+ photos (array[Photo]) - Array of wellness photos
++ photos (array[Photo], required) - Array of wellness photos
 
 ## SportsGround
 + name: Badminton (string, required)
 + description: `Badminton je individuální olympijský raketový sport. Jeho přímým předchůdcem je indická poona. Při hře dva protivníci (nebo dvě dvojice) odpalují přes síť pomocí rakety míček (košík) a snaží se donutit protivníka k chybě.` (string, optional)
 + openingHours (OpeningHour, optional)
-+ photos (array[Photo]) - Array of sportsGround photos
++ photos (array[Photo], required) - Array of sportsGround photos
 
 ## ConferenceRoom
 + name: Badminton (string, required)
 + description: `Balkónem s výhledem do zahrady vyniká první konferenční místnost čtyřhvězdičkového Hotelu U Tří korunek v Praze. Místnost díky své rozloze 70m2 nabízí variabilní uspořádání přesně podle požadavků zákazníka.` (string, optional)
 + openingHours (OpeningHour, optional)
-+ photos (array[Photo]) - Array of conference room photos
++ photos (array[Photo], required) - Array of conference room photos
 
 ## OpeningHour
-+ mon (array[OpeningHourInterval]) - Monday (Closed if array empty)
-+ tue (array[OpeningHourInterval]) - Tuesday (Closed if array empty)
-+ wed (array[OpeningHourInterval]) - Wednesday (Closed if array empty)
-+ thu (array[OpeningHourInterval]) - Thursday (Closed if array empty)
-+ fri (array[OpeningHourInterval]) - Friday (Closed if array empty)
-+ sat (array[OpeningHourInterval]) - Saturday (Closed if array empty)
-+ sun (array[OpeningHourInterval]) - Sunday (Closed if array empty)
++ mon (array[OpeningHourInterval], required) - Monday (Closed if array empty)
++ tue (array[OpeningHourInterval], required) - Tuesday (Closed if array empty)
++ wed (array[OpeningHourInterval], required) - Wednesday (Closed if array empty)
++ thu (array[OpeningHourInterval], required) - Thursday (Closed if array empty)
++ fri (array[OpeningHourInterval], required) - Friday (Closed if array empty)
++ sat (array[OpeningHourInterval], required) - Saturday (Closed if array empty)
++ sun (array[OpeningHourInterval], required) - Sunday (Closed if array empty)
 
 ## OpeningHourInterval
 + from: `08:00` (string, required)
@@ -502,20 +502,20 @@ HOST: https://api.previo.cz/app/
 ## Account
 + resId: 1235 (number,required) - The unique identifier for reservation (Reservation)
 + groupAccount (GroupAccount)
-+ roomAccounts (array[RoomAccount])
++ roomAccounts (array[RoomAccount], required)
 
 ## GroupAccount
 + total: 100.00 (number,required)
 + paid: 50.00 (number, required) 
 + curId: 1 (string, required) - The unique identifier for currency
-+ items (array[AccountItem])
++ items (array[AccountItem], required)
 
 ## RoomAccount
 + comId: 12345 (number,required) - The unique identifier for commission (Commission)
 + total: 100.00 (number,required)
 + paid: 50.50 (number, required) 
 + curId: 1 (string, required) - The unique identifier for currency
-+ items (array[AccountItem])
++ items (array[AccountItem], required)
 
 ## AccountItem
 + coaId: 342 (number, required) - The unique identifier for account item
@@ -561,12 +561,12 @@ HOST: https://api.previo.cz/app/
 + url: https://booking.previo.cz/gate/request/51a8d26a289179e6aa193c0564fa525b/ (string, required) - Pay url for pay reservation or one commission
 
 ## CodeBook
-+ commissionStatuses (array[CommisionStatus]) - Array of commission status
-+ attractionTypes (array[AttractionType]) - Array of type of attractions
-+ currencies (array[Currency]) -  Array of currency
-+ countries (array[Country]) - Array of country
-+ genders (array[Gender]) - Array of gender
-+ identityTypes (array[IdentityType]) - Array of identity types
++ commissionStatuses (array[CommisionStatus], required) - Array of commission status
++ attractionTypes (array[AttractionType], required) - Array of type of attractions
++ currencies (array[Currency], required) -  Array of currency
++ countries (array[Country], required) - Array of country
++ genders (array[Gender], required) - Array of gender
++ identityTypes (array[IdentityType], required) - Array of identity types
 
 ## CommisionStatus
 + cosId: 1 (number,required) - The unique identifier for commision status
