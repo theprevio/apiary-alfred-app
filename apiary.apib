@@ -513,15 +513,15 @@ HOST: https://api.previo.cz/app/
 ## RoomAccount
 + comId: 12345 (number,required) - The unique identifier for commission (Commission)
 + total: 100.00 (number,required)
-+ paid: 50.00 (number, required) 
++ paid: 50.50 (number, required) 
 + curId: 1 (string, required) - The unique identifier for currency
 + items (array[AccountItem])
 
 ## AccountItem
 + coaId: 342 (number, required) - The unique identifier for account item
 + name: Fried Onion Burger (string, required)
-+ price: 345.23 (number, required) - Price of one item
-+ count: 3 (number, required) - Count of items
++ price: 100.50 (number, required) - Price of one item
++ count: 1 (number, required) - Count of items
 + paid: 100.50 (number, required)
 
 ## Attraction
@@ -579,7 +579,7 @@ HOST: https://api.previo.cz/app/
 
 ## Currency
 + curId: 1 (number, required) - The unique identifier for currency
-+ name: EUR (string, required) - Name of currency (ISO 4217)
++ code: EUR (string, required) - Name of currency (ISO 4217)
 
 ## Country
 + couId: 1 (number, required) - The unique identifier for country
