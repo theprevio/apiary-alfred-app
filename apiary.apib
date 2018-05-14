@@ -544,11 +544,11 @@ HOST: https://api.previo.cz/app/
 
 ## Service 
 + pckId: 31 (number, required) -  The unique identifier for service
++ pcuId: 1 (number, required) - The unique identifier for service unit
 + name: Breakfast in bed (string, required) - Title of service
 + description: The SpaceX bid was for exclusive use of the launch complex to ... and control systems with substantial new plumbing for a variety of (string, optional)
 + price: 345.23 (number, required) - Price of service
 + curId: 1 (number, required) - The unique identifier for currency
-+ unit: /pcs (string, required) - Price unit: per room, per person, per item, per night, per person/nigt, per room/night
 + photo (Photo, optional)
 
 ## GuestCategory
@@ -567,6 +567,7 @@ HOST: https://api.previo.cz/app/
 + countries (array[Country], required) - Array of country
 + genders (array[Gender], required) - Array of gender
 + identityTypes (array[IdentityType], required) - Array of identity types
++ units (Units, required) - Custom Previo units
 
 ## CommisionStatus
 + cosId: 1 (number,required) - The unique identifier for commision status
@@ -591,6 +592,14 @@ HOST: https://api.previo.cz/app/
 ## IdentityType
 + guiId: 1 (number, required) - The unique identifier for guest identity type
 + name: Identity card (string, required) - Name of guest identity type
+
+## Units
++ services (array[ServiceUnit], required) - Array of service units (per room, per person, per item, per night, per person/nigt, per room/night)
+
+## ServiceUnit
++ pcuId: 1 (number, required) - The unique identifier for service unit
++ text: /per. (string, required) - Text representation of unit
++ description: Price is per each person. (string, required) - Description of service unit
 
 ## Logo
 + url: `https://ihg.scene7.com/is/image/ihg/HI_logo_LVP_@2x` (string, required)
