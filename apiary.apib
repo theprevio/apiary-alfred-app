@@ -139,8 +139,7 @@ HOST: https://api.previo.cz/app/
             Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
         
 + Response 200 (application/json)
-    + Attributes (GuestCheckIn)
-    
+
 + Response 400 (application/json)
     + Attributes (Error)
 
@@ -394,7 +393,7 @@ HOST: https://api.previo.cz/app/
 + visa: HD55AIJCS9-4GD-9S (string, optional) - Visa od guest
 + numberPlate: 7A7 5070 (string, optional) - Number plate od guest`s car
 + nationality: 1 (number, required) - Country id of guest nationality
-+ address (AddressGuest, optional)
++ address (AddressGuest, required)
 
 ## GuestCheckIn
 + gueId: 1233 (number,required) - The unique identifier for guest
