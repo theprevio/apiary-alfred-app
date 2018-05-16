@@ -281,6 +281,24 @@ HOST: https://api.previo.cz/app/
 + Response 505 (application/json)
     + Attributes (ReservationEndedError)
 
+### Order service [POST /service/order]
+
+`In development`
+
++ Request (application/json)
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+
+    + Attributes (ServiceOrder)
+            
++ Response 200 (application/json)
+
++ Response 505 (application/json)
+    + Attributes (ReservationEndedError)
+
 ## System [/system]
 
 ### Code books [GET /system/codeBook]
@@ -551,6 +569,10 @@ HOST: https://api.previo.cz/app/
 + curId: 1 (number, required) - The unique identifier for currency
 + photo (Photo, optional)
 
+## ServiceOrder
++ pckId: 31 (number, required) -  The unique identifier for service
++ quantity: 1 (number, required) - Amount of purchased services
+
 ## GuestCategory
 + guaId: 1 (number, required)
 + name: `Dítě do 6-ti let` (string, required)
@@ -567,7 +589,7 @@ HOST: https://api.previo.cz/app/
 + countries (array[Country], required) - Array of country
 + genders (array[Gender], required) - Array of gender
 + identityTypes (array[IdentityType], required) - Array of identity types
-+ units (Units, required) - Custom Previo units
++ unit (Unit, required) - Custom Previo units
 
 ## CommisionStatus
 + cosId: 1 (number,required) - The unique identifier for commision status
@@ -593,7 +615,7 @@ HOST: https://api.previo.cz/app/
 + guiId: 1 (number, required) - The unique identifier for guest identity type
 + name: Identity card (string, required) - Name of guest identity type
 
-## Units
+## Unit
 + services (array[ServiceUnit], required) - Array of service units (per room, per person, per item, per night, per person/nigt, per room/night)
 
 ## ServiceUnit
