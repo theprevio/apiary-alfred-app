@@ -366,14 +366,13 @@ HOST: https://api.previo.cz/app/
 + cosId: 1 (number,required) - The unique identifier for commission status (ReservationStatus)
 + termFrom: `2017-07-02T06:55:00` (string,required) - ISO 8601
 + termTo: `2017-07-02T06:55:00` (string,required) - ISO 8601
-+ isCheckIn: false (boolean, required) - If all guests check-in
-+ isCheckOut: false (boolean, required) - If all guests check-out
 + room: Moderní ubytování s příjemnou postelí (string, required) - Name of room
 + roomKind: Dvoulůžkový (string, required) - Name of room kind
 + guests (array[Guest], required)
 
 ## Guest
 + gueId: 1233 (number,required) - The unique identifier for guest
++ hasCompleteInfo: false (boolean, required) - If the host has filled in all the data required to check in
 + firstName: Radim (string,optional)
 + lastName: Vaculik (string,optional)
 + email: radim@vaculik.cz (string,optional)
@@ -391,6 +390,7 @@ HOST: https://api.previo.cz/app/
 
 ## GuestCheckIn
 + gueId: 1233 (number,required) - The unique identifier for guest
++ hasCompleteInfo: false (boolean, required) - If the host has filled in all the data required to check in
 + firstName: Radim (string,required)
 + lastName: Vaculik (string,required)
 + email: radim@vaculik.cz (string,required)
