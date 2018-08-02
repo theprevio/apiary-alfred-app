@@ -5,44 +5,31 @@ HOST: https://api.previo.cz/app/
 
 ## Notification - OneSignal
  - On login
-   - `resId = 123456`
-   - `active = true`
+   - Set tag `pin = NETA9Q`
  - On logout
-   - `active = false`
+   - Remove tag `pin`
 
-### Type
-  - Online check-in: opens check-in screen
-    - `type = notification`
-    - `title = ...`
-    - `message = ...`
-    - `screen = check-in`
-  - New/Remove account item: opens account
-    - `type = notification`
-    - `title = ...`
-    - `message = ...`
-    - `screen = account`
-    - `action = refresh`
-  - Pay: Opens pop-up screen with pay
-    - `type = notification`
-    - `title = ...`
-    - `message = ...`
-    - `screen = pay`
-    - `action = refresh`
-  - Review: Open review screen
-    - `type = notification`
-    - `title = Ohodnoťte Váš pobyt`
-    - `message = Protože nám záleží na vašem názoru`
-    - `screen = review`
-  - Internal:
-    - `type = internal`
-    - `action = refresh`
+### OneSignal data
+ ```
+ {
+   type: 1,
+   action: 1,
+   data: "DATA_IN_JSON"
+ }
+ ```
+ - `type`
+  - `1` - Silent notification (refresh data in background)
+  - `2` - Notification
+  
+ - `action` (the data specification that contains the data object)
+  - `1` - <a href="https://previoalfredapp.docs.apiary.io/#reference/0/hotel/get-hotel-info">Hotel</a>
+  - `2` - <a href="https://previoalfredapp.docs.apiary.io/#reference/0/services/services-list">Service</a>
+  - `3` - <a href="https://previoalfredapp.docs.apiary.io/#reference/0/reservation/get-reservation">Reservation</a>
+  - `4` - <a href="https://previoalfredapp.docs.apiary.io/#reference/0/hotel-account/account">Account</a>
+  - `5` - <a href="https://previoalfredapp.docs.apiary.io/#reference/0/hotel/get-attractions-around">Attraction</a>
+  - `6` - <a href="https://previoalfredapp.docs.apiary.io/#reference/0/system/code-books">CodeBook</a>
  
-### Parameters
-- `type` - internal|notification
-- `action` - none|refresh
-- `screen` - review|pay|account|check-in|main
-- `title` - string
-- `message`
+ - `data` - Json object with attached data
 
 ## Deep Links
 - `alfred://payment/success` - opens success dialog
