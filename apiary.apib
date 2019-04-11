@@ -28,8 +28,16 @@ HOST: https://api.previo.cz/app/
   - `5` -  <a href="https://previoalfredapp.docs.apiary.io/#reference/0/reservation/get-rooms-keys">Room keys</a>
 
 ## Deep Links
-- `alfred://payment/success` - opens success dialog
-- `alfred://payment/failure` - opens fail dialog
+- `alfred://payment/success` - opens success payment dialog
+- `alfred://payment/failure` - opens fail payment dialog
+- `https://myalfred.cz/login/{PIN}` - Deeplink in vourcher, for login into My Alfred app
+- `https://myalfred.cz/roomKeys?pin={PIN}&invitationCode={INVITATION_CODE}&endpointUId={ENDPOINT_UID}` - Deeplink in confirm email for Assa Abloy locks
+
+`{PIN}` - `7DE3SA` ~ Pin for log in into My Alfred app
+
+`{INVITATION_CODE}` - `GSTD-ZE5W-85DE-0U54` ~ Invitation key for Assa Abloy SDK
+
+`{ENDPOINT_UID}` - `89251b7d-b27b-4416-b7ad-cbf0877257b3` ~ Id of Assa Abloy end-point
 
 ## Authentication [/authentication]
 
@@ -41,6 +49,7 @@ HOST: https://api.previo.cz/app/
             Accept-Language: cs
             X-Previo-App-ID: 3
             User-Agent: iPhoneX - Model name of user device
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19 
             
 + Parameters
     + code: ABC123 (string,required) - Unique reservation or commission identifier, 6 capital chars and numbers
@@ -77,6 +86,7 @@ HOST: https://api.previo.cz/app/
             Accept-Language: cs
             X-Previo-App-ID: 3
             Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
             
 + Response 200 (application/json)
     + Attributes (Reservation)
@@ -97,6 +107,7 @@ HOST: https://api.previo.cz/app/
             Accept-Language: cs
             X-Previo-App-ID: 3
             Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
     
 + Response 200 (application/json)
 
@@ -112,6 +123,7 @@ HOST: https://api.previo.cz/app/
             Accept-Language: cs
             X-Previo-App-ID: 3
             Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
         
 + Response 200 (application/json)
 
@@ -126,6 +138,7 @@ HOST: https://api.previo.cz/app/
             Accept-Language: cs
             X-Previo-App-ID: 3
             Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
 
 + Response 200 (application/json)
 
@@ -143,6 +156,7 @@ HOST: https://api.previo.cz/app/
             Accept-Language: cs
             X-Previo-App-ID: 3
             Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
 
 + Parameters
     + comId: 93481 (number, optional) - Unique commission identifier, if we want to pay one room account only
@@ -166,6 +180,7 @@ HOST: https://api.previo.cz/app/
             Accept-Language: cs
             X-Previo-App-ID: 3
             Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
             
 + Response 200 (application/json)
 
@@ -183,9 +198,68 @@ HOST: https://api.previo.cz/app/
             Accept-Language: cs
             X-Previo-App-ID: 3
             Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
             
 + Response 200 (application/json)
-    + Attributes (array[DoorKey])
+    + Attributes (Keychain)
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
++ Response 401 (application/json)
+    + Attributes (AuthTimeoutError)
+
+### Initialize mobile key [POST /reservation/roomKeysInitialization]
+
++ Request (application/json)
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
+            
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
++ Response 401 (application/json)
+    + Attributes (AuthTimeoutError)
+
+### Change confirm email for Assa Abloy locks [PUT /reservation/roomKeysConfirmMail]
+
++ Request (application/json)
+    + Headers
+
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
+            
+    + Attributes (AssaAbloyEmail)
+            
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
++ Response 401 (application/json)
+    + Attributes (AuthTimeoutError)
+
+### Approved endpoint in Assa Abloy locks [PUT /reservation/roomKeysApproved]
+
++ Request (application/json)
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
+            
+    + Attributes (AssaAbloyEndpointId)
+            
++ Response 200 (application/json)
 
 + Response 400 (application/json)
     + Attributes (Error)
@@ -203,6 +277,7 @@ HOST: https://api.previo.cz/app/
             Accept-Language: cs
             X-Previo-App-ID: 3
             Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
             
 + Response 200 (application/json)
     + Attributes (Hotel)
@@ -218,6 +293,7 @@ HOST: https://api.previo.cz/app/
             Accept-Language: cs
             X-Previo-App-ID: 3
             Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
             
 + Response 200 (application/json)
     + Attributes (array[Attraction])
@@ -230,6 +306,7 @@ HOST: https://api.previo.cz/app/
             Accept-Language: cs
             X-Previo-App-ID: 3
             Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
             
 + Response 200 (application/json)
     + Attributes (array[Trip])
@@ -244,6 +321,7 @@ HOST: https://api.previo.cz/app/
             Accept-Language: cs
             X-Previo-App-ID: 3
             Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
 
 + Response 200 (application/json)
     + Attributes (Account)
@@ -261,6 +339,7 @@ HOST: https://api.previo.cz/app/
             Accept-Language: cs
             X-Previo-App-ID: 3
             Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
             
 + Response 200 (application/json)
     + Attributes (array[Service])
@@ -276,6 +355,7 @@ HOST: https://api.previo.cz/app/
             Accept-Language: cs
             X-Previo-App-ID: 3
             Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
 
     + Attributes (ServiceOrder)
             
@@ -385,7 +465,7 @@ HOST: https://api.previo.cz/app/
 + isRecreation: true (boolean,required)
 + birthDate: `2017-01-01T00:00:00` (string,required) - ISO 8601
 + birthPlace: London (string, optional)
-+ genId: 1 (number, required) - The unique identifier for gender (1 man 2 woman)
++ genId: 1 (number, optional) - The unique identifier for gender (1 man 2 woman null)
 + identity (Identity, required) - Identity of guest
 + visa: 21313KDMFS32 (string, optional) - Visa number
 + numberPlate: 5AN6312 (string, optional) - Number plate of guest`s car
@@ -401,22 +481,27 @@ HOST: https://api.previo.cz/app/
 + email: radim@vaculik.cz (string,optional)
 + phone: +420321439439 (string,optional)
 
+## Keychain
++ openDoorByApp: true (boolean, required) - The hotel has locks that support unlocking through alfred
++ state: 10 (number, required) - The key allocation status (1 - not issued, 4 - can request key , 6 - sent a confirmation email, 10 - keys are ready for use)
++ brand: 1 (number, required) - Supplier of locking system  (null - not supported open door by app, 1 - Salto, 3 - Assa Abloy)
++ keys (array[DoorKey], required) - Array of valid keys
+
 ## DoorKey
 + clcId: 321 (number, required) - The unique identifier for key
-+ brand: 1 (number, required) - Supplier of locking system  (1 - Salto)
 + type: 1 (number, required) -  Type of using key (1- bluetooth, 2 - number)
 + name: Room 201 (string, required) - Key name of the door
-+ value: laH6wSG0n4xmTZVVWrfKQWVXUwKALHjVMgutn5Cu (string, required) - Value of key (key hash/pin code)
++ value: laH6wSG0n4xmTZVVWrfKQWVXUwKALHjVMgutn5Cu (string, optional) - Value of key (key hash/pin code). Assa Abloy return null
 
 ## Hotel
 + hotId: 3209 (number,required) - The unique identifier for hotel
 + name: Hotel Janacek (string,required)
 + address (Address,required)
++ wirelessNetworks (array[WirelessNetwork], required) - Array of wireless networks
 + url: http://www.hoteljanacek.cz (string,optional)
 + phone: +420251613924 (string,optional)
 + arrival: 15:00:00 (string,required)
 + departure: 10:00:00 (string,required)
-+ openDoorByApp: true (boolean, required) - The hotel has locks that support unlocking through alfred
 + accommodation (Accommodation, required)
 + restaurants (array[Restaurant], required)
 + wellness (array[Wellness], required)
@@ -425,6 +510,10 @@ HOST: https://api.previo.cz/app/
 + primaryColor: #59b553 (string,required)
 + logo (Logo, required) - Hotel logo
 + cancellationPolicies (array[CancelationPolicy], required) - Cancellation policy for reservation in hotel
+
+## WirelessNetwork
++ ssid: WiFi - My Alfred (string, required) - Name of wireless network
++ password: null (string, optional) - Password of wireless network, if null wireless network is open
 
 ## CancelationPolicy
 + period: 48 (number, required) - How many hours before reservation cancellation is this condition valid
@@ -627,3 +716,9 @@ HOST: https://api.previo.cz/app/
 + url: `https://www.demilked.com/magazine/wp-content/uploads/2014/12/norway-landscape-photography-scandinavian-nature-4.jpg` (string, required)
 + height: 720 (number, required) - In pixel
 + width: 960 (number, required) - In pixel
+
+## AssaAbloyEmail
++ email: user@example.com (string, required) - New mail for confirmation mail
+
+## AssaAbloyEndpointId
++ endpoint: `7dc53df5-703e-6en32-8670-b1c468f7sk2df` (string, required) - Name of device endpoint in Assa Abloy
