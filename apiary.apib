@@ -25,7 +25,9 @@ HOST: https://api.previo.cz/app/
   - `2` - <a href="https://previoalfredapp.docs.apiary.io/#reference/0/services/services-list">Service</a>
   - `3` - <a href="https://previoalfredapp.docs.apiary.io/#reference/0/reservation/get-reservation">Reservation</a>
   - `4` - <a href="https://previoalfredapp.docs.apiary.io/#reference/0/hotel-account/account">Account</a>
-  - `5` -  <a href="https://previoalfredapp.docs.apiary.io/#reference/0/reservation/get-rooms-keys">Room keys</a>
+  - `5` - <a href="https://previoalfredapp.docs.apiary.io/#reference/0/reservation/get-rooms-keys">Room keys</a>
+
+  - `100` - Open detail screen of GreenOption
 
 ## Deep Links
 - `alfred://payment/success` - opens success payment dialog
@@ -364,6 +366,25 @@ HOST: https://api.previo.cz/app/
 + Response 505 (application/json)
     + Attributes (ReservationEndedError)
 
+### Green Option [PUT /service/greenOption]
+
++ Request (application/json)
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
+            
++ Response 200 (application/json)
+    + Attributes (GreenOption)
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
++ Response 401 (application/json)
+    + Attributes (AuthTimeoutError)
+
 ## System [/system]
 
 ### Code books [GET /system/codeBook]
@@ -433,6 +454,7 @@ HOST: https://api.previo.cz/app/
 + cosId: 1 (number,required) - The unique identifier for commission status (ReservationStatus)
 + termFrom: `2017-07-02T06:55:00` (string,required) - ISO 8601
 + termTo: `2017-07-02T06:55:00` (string,required) - ISO 8601
++ greenOption (GreenOption, optional) - Green option commission setting
 + room: Moderní ubytování s příjemnou postelí (string, required) - Name of room
 + roomKind: Dvoulůžkový (string, required) - Name of room kind
 + guests (array[Guest], required)
@@ -454,6 +476,9 @@ HOST: https://api.previo.cz/app/
 + numberPlate: 7A7 5070 (string, optional) - Number plate od guest`s car
 + nationality: 1 (number, optional) - Country id of guest nationality
 + address (AddressGuest, required)
+
+## GreenOption
++ skipCleaningTomorrow: true (boolean, required) - Cleaning will be skipped tomorrow
 
 ## GuestCheckIn
 + gueId: 1233 (number,required) - The unique identifier for guest
@@ -502,6 +527,7 @@ HOST: https://api.previo.cz/app/
 + phone: +420251613924 (string,optional)
 + arrival: 15:00:00 (string,required)
 + departure: 10:00:00 (string,required)
++ greenOptionSupported: true (boolean, required) - Is hotel support housekeeping Green Option
 + accommodation (Accommodation, required)
 + restaurants (array[Restaurant], required)
 + wellness (array[Wellness], required)
