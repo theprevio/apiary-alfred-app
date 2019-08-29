@@ -21,11 +21,11 @@ HOST: https://api.previo.cz/app/
   - `2` - Notification
   
  - `action` (the data specification that contains the data object)
-  - `1` - <a href="https://previoalfredapp.docs.apiary.io/#reference/0/hotel/get-hotel-info">Hotel</a>
-  - `2` - <a href="https://previoalfredapp.docs.apiary.io/#reference/0/services/services-list">Service</a>
-  - `3` - <a href="https://previoalfredapp.docs.apiary.io/#reference/0/reservation/get-reservation">Reservation</a>
-  - `4` - <a href="https://previoalfredapp.docs.apiary.io/#reference/0/hotel-account/account">Account</a>
-  - `5` - <a href="https://previoalfredapp.docs.apiary.io/#reference/0/reservation/get-rooms-keys">Room keys</a>
+  - `1` - <a href="https://apialfredapp.docs.apiary.io/#reference/0/hotel/get-hotel-info">Hotel</a>
+  - `2` - <a href="https://apialfredapp.docs.apiary.io/#reference/0/services/services-list">Service</a>
+  - `3` - <a href="https://apialfredapp.docs.apiary.io/#reference/0/reservation/get-reservation">Reservation</a>
+  - `4` - <a href="https://apialfredapp.docs.apiary.io/#reference/0/hotel-account/account">Account</a>
+  - `5` - <a href="https://apialfredapp.docs.apiary.io/#reference/0/reservation/get-rooms-keys">Room keys</a>
 
   - `100` - Open detail screen of GreenOption
 
@@ -527,7 +527,7 @@ HOST: https://api.previo.cz/app/
 + phone: +420251613924 (string,optional)
 + arrival: 15:00:00 (string,required)
 + departure: 10:00:00 (string,required)
-+ greenOptionSupported: true (boolean, required) - Is hotel supporting housekeeping Green Option
++ greenOption (GreenOptionGet, required) - Is hotel supporting housekeeping Green Option
 + accommodation (Accommodation, required)
 + restaurants (array[Restaurant], required)
 + wellness (array[Wellness], required)
@@ -536,6 +536,10 @@ HOST: https://api.previo.cz/app/
 + primaryColor: #59b553 (string,required)
 + logo (Logo, required) - Hotel logo
 + cancellationPolicies (array[CancelationPolicy], required) - Cancellation policy for reservation in hotel
+
+## GreenOptionGet
++ isSupported: true (boolean, required) - Is hotel supporting housekeeping Green Option
++ showNotificationAtTime: 20000 (number) - number of seconds since the start of the day, when the notification should be sent
 
 ## WirelessNetwork
 + ssid: WiFi - My Alfred (string, required) - Name of wireless network
@@ -662,6 +666,7 @@ HOST: https://api.previo.cz/app/
 + photos (array[Photo], required) - Array of trip photos
 + gps (GPS, optional)
 + distance: 2.1 (number, optional) - The distance of the trip. Unit: km
++ external url: https://mapy.cz/s/lafomegura (string, optional) - Link to any URL - restaurant menu, trip directions etc.
 
 ## GPS
 + lat: 49.01235 (number, optional)
