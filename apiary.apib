@@ -455,6 +455,7 @@ HOST: https://api.previo.cz/app/
 + room: Moderní ubytování s příjemnou postelí (string, required) - Name of room
 + roomKind: Dvoulůžkový (string, required) - Name of room kind
 + guests (array[Guest], required)
++ paymentType: 1 (number) - Type of payment
 
 ## Guest
 + gueId: 1233 (number,required) - The unique identifier for guest
@@ -533,6 +534,7 @@ HOST: https://api.previo.cz/app/
 + primaryColor: #59b553 (string,required)
 + logo (Logo, required) - Hotel logo
 + cancellationPolicies (array[CancelationPolicy], required) - Cancellation policy for reservation in hotel
++ hasPaymentGate: true (boolean) - True: hotel has implemented gateway, false: hotel has not implemented gateway
 
 ## GreenOptionGet
 + isSupported: true (boolean, required) - Is hotel supporting housekeeping Green Option
@@ -715,6 +717,8 @@ HOST: https://api.previo.cz/app/
 ## Currency
 + curId: 1 (number, required) - The unique identifier for currency
 + code: EUR (string, required) - Code of currency (ISO 4217)
++ symbol: € (string, required) - Symbol of currency
++ position: left (string, required) - Position of currency symbol
 
 ## Country
 + couId: 1 (number, required) - The unique identifier for country
