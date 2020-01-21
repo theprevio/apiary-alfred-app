@@ -468,7 +468,6 @@ HOST: https://api.previo.cz/app/
 + isRecreation: true (boolean,required)
 + birthDate: `2017-01-01T00:00:00` (string,optional) - ISO 8601
 + birthPlace: London (string, optional)
-+ genId: 1 (number, optional) - The unique identifier for gender (1 man 2 woman)
 + identity (Identity, optional) - Identity of guest
 + visa: HD55AIJCS9-4GD-9S (string, optional) - Visa od guest
 + numberPlate: 7A7 5070 (string, optional) - Number plate od guest`s car
@@ -483,12 +482,11 @@ HOST: https://api.previo.cz/app/
 + hasCompleteInfo: false (boolean, required) - If the host has filled in all the data required to check in
 + firstName: Radim (string,required)
 + lastName: Vaculik (string,required)
-+ email: radim@vaculik.cz (string,required)
-+ phone: +420421123987 (string,required)
++ email: radim@vaculik.cz (string,optional)
++ phone: +420421123987 (string,optional)
 + isRecreation: true (boolean,required)
 + birthDate: `2017-01-01T00:00:00` (string,required) - ISO 8601
 + birthPlace: London (string, optional)
-+ genId: 1 (number, optional) - The unique identifier for gender (1 man 2 woman null)
 + identity (Identity, required) - Identity of guest
 + visa: 21313KDMFS32 (string, optional) - Visa number
 + numberPlate: 5AN6312 (string, optional) - Number plate of guest`s car
@@ -705,6 +703,7 @@ HOST: https://api.previo.cz/app/
 + genders (array[Gender], required) - Array of gender
 + identityTypes (array[IdentityType], required) - Array of identity types
 + unit (Unit, required) - Custom Previo units
++ streetType (array[StreetType], required) - Array of Hungary street type
 
 ## CommisionStatus
 + cosId: 1 (number,required) - The unique identifier for commision status
@@ -731,6 +730,10 @@ HOST: https://api.previo.cz/app/
 ## IdentityType
 + guiId: 1 (number, required) - The unique identifier for guest identity type
 + name: Identity card (string, required) - Name of guest identity type
+
+## StreetType
++ id: 1 (number, required) - The unique identifier for street type
++ name: utca (string, required) - Name of street type
 
 ## Unit
 + services (array[ServiceUnit], required) - Array of service units (per room, per person, per item, per night, per person/nigt, per room/night)
