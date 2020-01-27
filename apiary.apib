@@ -149,6 +149,22 @@ HOST: https://api.previo.cz/app/
     
 + Response 401 (application/json)
     + Attributes (AuthTimeoutError)
+    
+### Note [POST /reservation/note]
+
++ Request (application/json)
+    + Attributes (NoteCheckIn)
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
+
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+    + Attributes (Error)
 
 ### Pay [GET /reservation/pay{?comId}{?groupAccount}]
 
@@ -492,6 +508,10 @@ HOST: https://api.previo.cz/app/
 + numberPlate: 5AN6312 (string, optional) - Number plate of guest`s car
 + nationality: 1 (number, required) - Country id of guest nationality
 + address (AddressGuestCheckIn, required)
+
+## NoteCheckIn
++ note: some note (string,optional)
++ checkInTime: 18:30 (string,optional)
 
 ## Identity
 + number: N5646645 (string, required)
