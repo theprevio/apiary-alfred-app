@@ -3,31 +3,25 @@ HOST: https://api.previo.cz/app/
 
 # API - Alfred app
 
-## Notification - OneSignal
- - On login
-   - Set tag `pin = NETA9Q`
- - On logout
-   - Remove tag `pin`
-
-### OneSignal data
+## Pusher
  ```
  {
-   type: 1,
-   action: 1,
+   actions: ['RESERVATION', 'SERVICES'],
  }
  ```
- - `type`
-  - `1` - Silent notification (refresh data in background)
-  - `2` - Notification
-  
  - `action` (the data specification that contains the data object)
-  - `1` - <a href="https://apialfredapp.docs.apiary.io/#reference/0/hotel/get-hotel-info">Hotel</a>
-  - `2` - <a href="https://apialfredapp.docs.apiary.io/#reference/0/services/services-list">Service</a>
-  - `3` - <a href="https://apialfredapp.docs.apiary.io/#reference/0/reservation/get-reservation">Reservation</a>
-  - `4` - <a href="https://apialfredapp.docs.apiary.io/#reference/0/hotel-account/account">Account</a>
-  - `5` - <a href="https://apialfredapp.docs.apiary.io/#reference/0/reservation/get-rooms-keys">Room keys</a>
+  - `reservation` - Changes in reservation API
+  - `account` - Changes in account API
+  - `services` - Changes in services API - in future
+  - `room_key` - Changes in room key API
 
-  - `100` - Open detail screen of GreenOption
+- `data` - Attached data in json format
+
+## Pusher chanels
+ - On login
+   - Set chanel `resId = 342412`
+ - On logout
+   - Remove chanel `resId`
 
 ## Deep Links
 - `alfred://payment/success` - opens success payment dialog
@@ -120,6 +114,22 @@ HOST: https://api.previo.cz/app/
 
 + Request (application/json)
     + Attributes (GuestCheckIn)
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
+        
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+    + Attributes (Error)
+    
+### Check in guest signature [POST /reservation/checkIn/signature]
+
++ Request (application/json)
+    + Attributes (GuestCheckInSignature)
     + Headers
     
             Accept-Language: cs
@@ -391,7 +401,9 @@ HOST: https://api.previo.cz/app/
             X-Previo-App-ID: 3
             Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
             X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
-            
+
+    + Attributes (GreenOption)
+
 + Response 400 (application/json)
     + Attributes (Error)
 
@@ -459,6 +471,7 @@ HOST: https://api.previo.cz/app/
 + hasReview: false (boolean, required) - true if user already reviewed this reservation
 + commissions (array[Commission], required)
 + contactPerson (ContactPerson, optional)
++ paymentType: 1 (number, optional) - Type of payment (1 - Invoice, 2 - OTA, 3 - Payment in Previo)
 + voucher: ABCDDEDS (string, required)
 + note: Bar bar (string, optional)
 
@@ -471,7 +484,6 @@ HOST: https://api.previo.cz/app/
 + room: Moderní ubytování s příjemnou postelí (string, required) - Name of room
 + roomKind: Dvoulůžkový (string, required) - Name of room kind
 + guests (array[Guest], required)
-+ paymentType: 1 (number) - Type of payment
 
 ## Guest
 + gueId: 1233 (number,required) - The unique identifier for guest
@@ -509,6 +521,11 @@ HOST: https://api.previo.cz/app/
 + nationality: 1 (number, required) - Country id of guest nationality
 + address (AddressGuestCheckIn, required)
 
+## GuestCheckInSignature
++ resId: 12060507 (number,required) - The unique identifier for reservation
++ gueId: 1233 (number,required) - The unique identifier for guest
++ signature: iVBORw0KGgoAAAANSUhEU... (string, required) - Base64 encoded signature image
+
 ## NoteCheckIn
 + note: some note (string,optional)
 + checkInTime: 18:30 (string,optional)
@@ -537,6 +554,7 @@ HOST: https://api.previo.cz/app/
 ## Hotel
 + hotId: 3209 (number,required) - The unique identifier for hotel
 + name: Hotel Janacek (string,required)
++ pusherChannel: 15xzry0E%&sNyanZYwqE (string, required) - Hash of Pusher chanel for hotel
 + address (Address,required)
 + wirelessNetworks (array[WirelessNetwork], required) - Array of wireless networks
 + url: http://www.hoteljanacek.cz (string,optional)
@@ -746,6 +764,9 @@ HOST: https://api.previo.cz/app/
 ## Country
 + couId: 1 (number, required) - The unique identifier for country
 + name: Czech Republic (string, required) - Name of country
++ code: CZ (string, required) - Code of country
++ flag: https://admin.previo.cz/share/image/country/cz.svg (string, required) - URL to country flag
++ top: true (boolean, required) - Is country top
 
 ## Gender
 + genId: 1 (number, required) - The unique identifier for gender
