@@ -573,6 +573,7 @@ HOST: https://api.previo.cz/app/
 + enablePayment: true (boolean, required) - Support hotel payment in My Alfred app
 + alfredActive: true (boolean, required) - Hotel has active full version of My Alfred app
 + requiredVisaCouIds: 33, 48, 342 (array, required) -  Visa for hotel
++ privacySetting (array[PrivacySetting], required) - Processing of personal data setting
 
 ## GreenOptionGet
 + isSupported: true (boolean, required) - Is hotel supporting housekeeping Green Option
@@ -586,6 +587,10 @@ HOST: https://api.previo.cz/app/
 + period: 48 (number, required) - How many hours before reservation cancellation is this condition valid
 + ammount: 2 (number, required) - The amount of the fee in selected unit
 + unit: 1 (number, required) - The unit of the cancellation fee
+
+## PrivacySetting
++ policyType: 1 (number, required) - The unique identifier for type of processing of personal data 0 - turn off
++ policyText: Something about processing of personal data (string, optional)
 
 ## AddressGuestCheckIn
 + street: Panska 6 (string, required)
