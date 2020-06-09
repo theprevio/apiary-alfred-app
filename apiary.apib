@@ -542,8 +542,8 @@ HOST: https://api.previo.cz/app/
 
 ## Keychain
 + openDoorByApp: true (boolean, required) - The hotel has locks that support unlocking through alfred
-+ state: 10 (number, required) - The key allocation status (1 - not issued, 4 - can request key , 6 - sent a confirmation email, 10 - keys are ready for use)
-+ brand: 3 (number, optional) - Supplier of locking system  (null - not supported open door by app, 1 - Salto, 3 - Assa Abloy)
++ state: 10 (number, required) - The key allocation status (1 - not issued, 3 - reservation need to be paid, 4 - can request key , 6 - sent a confirmation email, 10 - keys are ready for use)
++ brand: 3 (number, optional) - Supplier of locking system  (null - not supported open door by app, 1 - Salto, 3 - Assa Abloy, 6 - SmartLock, 8 - AcsLinePin, 9 - SmartLock online)
 + keys (array[DoorKey], required) - Array of valid keys
 
 ## DoorKey
