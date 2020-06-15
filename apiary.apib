@@ -471,7 +471,7 @@ HOST: https://api.previo.cz/app/
 + hasReview: false (boolean, required) - true if user already reviewed this reservation
 + commissions (array[Commission], required)
 + contactPerson (ContactPerson, optional)
-+ paymentType: 1 (number, optional) - Type of payment (1 - Invoice, 2 - OTA, 3 - Payment in Previo)
++ paymentType: 1 (number, required) - Type of payment (0 - Payment in Previo, 1 - Invoice, 2 - OTA)
 + voucher: ABCDDEDS (string, required)
 + note: Bar bar (string, optional)
 + requirePayment: false (boolean, required)
