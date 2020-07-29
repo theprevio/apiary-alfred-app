@@ -198,6 +198,21 @@ HOST: https://api.previo.cz/app/
     
 + Response 401 (application/json)
     + Attributes (AuthTimeoutError)
+    
+### Pay at the terminal [GET /reservation/terminalPay]
+
++ Request (application/json)
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
+
++ Response 200 (application/json)
+    
++ Response 400 (application/json)
+    + Attributes (Error)
 
 ### Post review [POST /reservation/review]
 
@@ -577,6 +592,7 @@ HOST: https://api.previo.cz/app/
 + requiredVisaCouIds: 33, 48, 342 (array, required) -  Visa for hotel
 + privacySetting (array[PrivacySetting], required) - Processing of personal data setting
 + alfredSetting (array[AlfredSetting], required)
++ hasTerminal: true (boolean, required) - Hotel has terminal pay at the kiosk
 
 ## GreenOptionGet
 + isSupported: true (boolean, required) - Is hotel supporting housekeeping Green Option
