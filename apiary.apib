@@ -213,6 +213,21 @@ HOST: https://api.previo.cz/app/
     
 + Response 400 (application/json)
     + Attributes (Error)
+    
+### Pre-Authorization at the terminal [GET /reservation/terminalPreAuthorization]
+
++ Request (application/json)
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
+
++ Response 200 (application/json)
+    
++ Response 400 (application/json)
+    + Attributes (Error)
 
 ### Post review [POST /reservation/review]
 
