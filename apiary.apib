@@ -3,7 +3,18 @@ HOST: https://api.previo.cz/app/
 
 # API - Alfred app
 
-## Pusher
+# Pusher
+
+## Pusher setting
+ - On login
+   - Set chanel `channelHash` in GET hotel API
+   - Set eventName `reservation-resId` split string reservation and reservation id (resId) from GET reservation API
+ - On logout
+   - Remove chanel `channelHash`
+   - Remove eventName `reservation-resId`
+   
+## Pusher data
+
  ```
  {
    actions: ['RESERVATION', 'SERVICES'],
@@ -12,16 +23,7 @@ HOST: https://api.previo.cz/app/
  - `action` (the data specification that contains the data object)
   - `reservation` - Changes in reservation API
   - `account` - Changes in account API
-  - `services` - Changes in services API - in future
   - `room_key` - Changes in room key API
-
-- `data` - Attached data in json format
-
-## Pusher chanels
- - On login
-   - Set chanel `resId = 342412`
- - On logout
-   - Remove chanel `resId`
 
 ## Deep Links
 - `alfred://payment/success` - opens success payment dialog
@@ -268,6 +270,24 @@ HOST: https://api.previo.cz/app/
     + Attributes (AuthTimeoutError)
 
 ### Initialize mobile key [POST /reservation/roomKeysInitialization]
+
++ Request (application/json)
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
+            
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
++ Response 401 (application/json)
+    + Attributes (AuthTimeoutError)
+    
+### Issue card key [POST /reservation/roomKeysCardInitialization]
 
 + Request (application/json)
     + Headers
