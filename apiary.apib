@@ -201,7 +201,8 @@ HOST: https://api.previo.cz/app/
 + Response 401 (application/json)
     + Attributes (AuthTimeoutError)
     
-### Pay at the terminal [GET /reservation/terminalPay]
+
+### Pay at the terminal [GET /reservation/terminalPay{?comId}{?groupAccount}]
 
 + Request (application/json)
     + Headers
@@ -210,6 +211,10 @@ HOST: https://api.previo.cz/app/
             X-Previo-App-ID: 3
             Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
             X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
+
++ Parameters
+    + comId: 93481 (number, optional) - Unique commission identifier, if we want to pay one room account only
+    + groupAccount: true (boolean, optional) - Pay group account only if true
 
 + Response 200 (application/json)
     
@@ -536,6 +541,7 @@ HOST: https://api.previo.cz/app/
 + roomKind: Dvoulůžkový (string, required) - Name of room kind
 + guests (array[Guest], required)
 + completeCheckin: true (boolean, required) - Commission complete checkin
++ isPreauthorizationPaymentConfirm: true (boolean, required) - Preauthorization payment complete
 
 ## Guest
 + gueId: 1233 (number,required) - The unique identifier for guest
@@ -574,7 +580,6 @@ HOST: https://api.previo.cz/app/
 + address (AddressGuestCheckIn, required)
 
 ## GuestCheckInSignature
-+ resId: 12060507 (number,required) - The unique identifier for reservation
 + gueId: 1233 (number,required) - The unique identifier for guest
 + signature: iVBORw0KGgoAAAANSUhEU... (string, required) - Base64 encoded signature image
 
@@ -593,7 +598,7 @@ HOST: https://api.previo.cz/app/
 
 ## Keychain
 + openDoorByApp: true (boolean, required) - The hotel has locks that support unlocking through alfred
-+ state: 10 (number, required) - The key allocation status (1 - not issued, 3 - reservation need to be paid, 4 - can request key , 6 - sent a confirmation email, 10 - keys are ready for use)
++ state: 10 (number, required) - The key allocation status (1 - not issued, 2 - require check-in, 3 - reservation need to be paid, 4 - can request key, 5 - request pre-authorization, 6 - sent a confirmation email, 10 - keys are ready for use)
 + brand: 3 (number, optional) - Supplier of locking system  (null - not supported open door by app, 1 - Salto, 3 - Assa Abloy, 6 - SmartLock, 8 - AcsLinePin, 9 - SmartLock online, 10 - Custom PIN)
 + keys (array[DoorKey], required) - Array of valid keys
 
