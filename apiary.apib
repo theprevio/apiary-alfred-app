@@ -737,13 +737,15 @@ HOST: https://api.previo.cz/app/
 ## GroupAccount
 + total: 100.00 (number,required)
 + paid: 50.00 (number, required) 
++ needPay: false (boolean, required) - Is need payment, because currency conversion 
 + curId: 1 (number, required) - The unique identifier for currency
 + items (array[AccountItem], required)
 
 ## RoomAccount
 + comId: 12345 (number,required) - The unique identifier for commission (Commission)
 + total: 100.00 (number,required)
-+ paid: 50.50 (number, required) 
++ paid: 50.50 (number, required)
++ needPay: false (boolean, required) - Is need payment, because currency conversiono
 + curId: 1 (number, required) - The unique identifier for currency
 + items (array[AccountItem], required)
 
