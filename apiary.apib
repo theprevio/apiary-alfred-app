@@ -273,6 +273,29 @@ HOST: https://api.previo.cz/app/
 
 + Response 401 (application/json)
     + Attributes (AuthTimeoutError)
+    
+### Unlock room lock [GET /reservation/unlockRoom{?lockId}{?comId}]
+
++ Request (application/json)
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
+   
++ Parameters
+    + lockId: 987654 (number, required) - TTLock lock ID
+    + comId: 123456 (number, required) - Commission ID
+    
+            
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
++ Response 401 (application/json)
+    + Attributes (AuthTimeoutError)
 
 ### Initialize mobile key [POST /reservation/roomKeysInitialization]
 
@@ -529,7 +552,7 @@ HOST: https://api.previo.cz/app/
 + paymentType: 1 (number, required) - Type of payment (0 - Payment in Previo, 1 - Invoice, 2 - OTA)
 + voucher: ABCDDEDS (string, required)
 + note: Bar bar (string, optional)
-+ requirePayment: false (boolean, required)
++ requirePayment: false (boolean, required) - If false, then we dont require any payment, especially because payment is made somewhere else (OTA, invoice for company)
 
 ## Commission
 + comId: 123456 (number,required) - The unique identifier for commission
@@ -607,6 +630,8 @@ HOST: https://api.previo.cz/app/
 + type: 1 (number, required) -  Type of using key (1- bluetooth, 2 - number)
 + name: Room 201 (string, required) - Key name of the door
 + value: laH6wSG0n4xmTZVVWrfKQWVXUwKALHjVMgutn5Cu (string, optional) - Value of key (key hash/pin code). Assa Abloy return null
++ lockId: 789654 (number, required) - TTLock lock ID
++ comId: 123456 (number, required) - Commission ID
 
 ## Hotel
 + hotId: 3209 (number,required) - The unique identifier for hotel
