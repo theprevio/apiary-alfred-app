@@ -297,7 +297,7 @@ HOST: https://api.previo.cz/app/
 + Response 401 (application/json)
     + Attributes (AuthTimeoutError)
 
-### Initialize mobile key [POST /reservation/roomKeysInitialization]
+### Initialize mobile key [POST /reservation/roomKeysInitialization{?comId}]
 
 + Request (application/json)
     + Headers
@@ -306,6 +306,9 @@ HOST: https://api.previo.cz/app/
             X-Previo-App-ID: 3
             Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
             X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
+            
++ Parameters
+    + comId: 123456 (number, required) - Commission ID
             
 + Response 200 (application/json)
 
