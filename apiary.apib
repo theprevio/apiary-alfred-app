@@ -297,7 +297,7 @@ HOST: https://api.previo.cz/app/
 + Response 401 (application/json)
     + Attributes (AuthTimeoutError)
 
-### Initialize mobile key [POST /reservation/roomKeysInitialization{?comId}]
+### Initialize mobile key [POST /reservation/roomKeysInitialization]
 
 + Request (application/json)
     + Headers
@@ -306,9 +306,6 @@ HOST: https://api.previo.cz/app/
             X-Previo-App-ID: 3
             Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
             X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
-            
-+ Parameters
-    + comId: 123456 (number, required) - Commission ID
             
 + Response 200 (application/json)
 
@@ -321,6 +318,7 @@ HOST: https://api.previo.cz/app/
 ### Issue card key [POST /reservation/roomKeysCardInitialization]
 
 + Request (application/json)
+    + Attributes (CardInitialization)
     + Headers
     
             Accept-Language: cs
@@ -530,6 +528,10 @@ HOST: https://api.previo.cz/app/
 + error: Reservation ended (string,required)
 + message (string, nullable)
 
+## CardInitialization
++ comId: 123456 (number, required) - Commission ID
++ cardNumber: 484653084 (string,optional)body
+
 ## Review
 + isRecommended: true (boolean,required)
 + service: 2 (number, optional) - Services (1 to 5)
@@ -641,7 +643,7 @@ HOST: https://api.previo.cz/app/
 + name: Hotel Janacek (string,required)
 + channelHash: 15xzry0E%&sNyanZYwqE (string, required) - Hash of Pusher chanel for hotel
 + address (Address,required)
-+ alternativeAddress (array[Address],optional)
++ alternativeAddress (array[AlternativeAddress], required)
 + wirelessNetworks (array[WirelessNetwork], required) - Array of wireless networks
 + url: http://www.hoteljanacek.cz (string,optional)
 + phone: +420251613924 (string,optional)
@@ -705,6 +707,15 @@ HOST: https://api.previo.cz/app/
 + streetType: utca (string, optional) - Type of street for Hungary hotel
 
 ## Address
++ street: Panska (string, required)
++ streetNumber: 6 (string, optional)
++ city: Brno (string, required)
++ zip: 60200 (string, required)
++ couId: 1 (number, required) - The unique identifier for country
++ gps: 50°09'37.1"N 14°23'54.0"E (string, optional)
+
+## AlternativeAddress
++ objectKindName: Double (string, required)
 + street: Panska (string, required)
 + streetNumber: 6 (string, optional)
 + city: Brno (string, required)
