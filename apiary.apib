@@ -663,6 +663,7 @@ HOST: https://api.previo.cz/app/
 + alfredActive: true (boolean, required) - Hotel has active full version of My Alfred app
 + requiredVisaCouIds: 33, 48, 342 (array, required) -  Visa for hotel
 + privacySetting (array[PrivacySetting], required) - Processing of personal data setting
++ termAndCondition (array[TermAndCondition], required) - Terms and Condition
 + alfredSetting (array[AlfredSetting], required)
 + hasTerminal: true (boolean, required) - Hotel has terminal pay at the kiosk
 
@@ -690,6 +691,10 @@ HOST: https://api.previo.cz/app/
 ## PrivacySetting
 + policyType: 1 (number, required) - The unique identifier for type of processing of personal data 0 - turn off
 + policyText: Something about processing of personal data (string, optional)
+
+## TermAndCondition
++ conditions: 1 (number, required) - Conditions type 0-turn off, 1-default text, 2-custom text
++ conditionsText: Something about terms and conditionser (string, optional)
 
 ## AddressGuestCheckIn
 + street: Panska 6 (string, required)
