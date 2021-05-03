@@ -587,6 +587,7 @@ HOST: https://api.previo.cz/app/
 + numberPlate: 7A7 5070 (string, optional) - Number plate od guest`s car
 + nationality: 1 (number, optional) - Country id of guest nationality
 + address (AddressGuest, required)
++ hasSignature: true (boolean, optional) - Has a guest signature
 
 ## GreenOption
 + skipCleaningTomorrow: true (boolean, required) - Cleaning will be skipped tomorrow
@@ -682,11 +683,16 @@ HOST: https://api.previo.cz/app/
 
 ## AlfredSetting
 + allowCheckIn: true (boolean, required) - Is allow check-in in Alfred?
-+ allowSignature: true (boolean, required) - Guest can sign the check-in
++ signatureSetting (SignatureSetting, required) - Signature settings
 + allowOnlinePayment: true (boolean, required) - Is allow online payment in Alfred?
 + keyBoxNumber: 722456789 (string, optional) - Phone number for GSM Key Box
 + emergencyCall: 722456789 (string, optional) - Phone number for emergency call
 + remoteOpenLock: true (boolean, optional) - Enable remote open locks functionremote
+
+## SignatureSetting
++ allowSignature: true (boolean, required) - Guest can sign the check-in
++ signatureAllGuest: true (boolean, required) - The hotel requires the signature of all guests
++ signatureForeignerGuest: true (boolean, required) - The hotel requires the signature of foreigner guests only
 
 ## PrivacySetting
 + policyType: 1 (number, required) - The unique identifier for type of processing of personal data 0 - turn off
