@@ -454,6 +454,22 @@ HOST: https://api.previo.cz/app/
 + Response 505 (application/json)
     + Attributes (ReservationEndedError)
 
+### Minibar items [GET /service/minibarList]
+
++ Request (application/json)
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
+            
++ Response 200 (application/json)
+    + Attributes (array[MinibarItem])
+    
++ Response 505 (application/json)
+    + Attributes (ReservationEndedError)
+
 ### Order service [POST /service/order]
 
 + Request (application/json)
@@ -684,6 +700,7 @@ HOST: https://api.previo.cz/app/
 ## AlfredSetting
 + allowCheckIn: true (boolean, required) - Is allow check-in in Alfred?
 + signatureSetting (SignatureSetting, required) - Signature settings
++ proofOnInfectivity (ProofOnInfectivity, required) - Proof on infectivity settings
 + allowOnlinePayment: true (boolean, required) - Is allow online payment in Alfred?
 + keyBoxNumber: 722456789 (string, optional) - Phone number for GSM Key Box
 + emergencyCall: 722456789 (string, optional) - Phone number for emergency call
@@ -691,7 +708,11 @@ HOST: https://api.previo.cz/app/
 
 ## SignatureSetting
 + allowSignature: true (boolean, required) - Guest can sign the check-in
-+ signatureMode: 1 (number, required) - 0 - Optional signature, 1 - Required signature for all guest, 2 - Required signature for foreigner guest
++ signatureMode: 1 (number, required) - 0 - Optional signature, 1 - Required signature for foreigner guest, 2 - Required signature for all guest
+
+## ProofOnInfectivity
++ proofOfInfectivityAllowed: true (boolean, required) - Guest can upload proof on infectivity
++ proofOfInfectivityMode: 1 (number, required) - 0 - Optional proof on infectivity, 1 - Required proof on infectivity for guest age 12 and more guest
 
 ## PrivacySetting
 + policyType: 1 (number, required) - The unique identifier for type of processing of personal data 0 - turn off
@@ -838,14 +859,19 @@ HOST: https://api.previo.cz/app/
 + gps: 50°09'37.1"N 14°23'54.0"E (string, optional)
 
 ## Service 
-+ pckId: 31 (number, required) -  The unique identifier for service
-+ pcuId: 1 (number, required) - The unique identifier for service unit
++ stoId: 31 (number, required) -  The unique identifier for service
 + isCheckbox: true (boolean, required) - Service is ordered by number or by checkbox
 + name: Breakfast in bed (string, required) - Title of service
 + description: The SpaceX bid was for exclusive use of the launch complex to ... and control systems with substantial new plumbing for a variety of (string, optional)
 + price: 345.23 (number, required) - Price of service
 + curId: 1 (number, required) - The unique identifier for currency
 + photo (Photo, optional)
+
+## MinibarItem
++ pckId: 31 (number, required) -  The unique identifier for minibar item
++ name: Breakfast in bed (string, required) - Title of service
++ price: 345.23 (number, required) - Price of service
++ curId: 1 (number, required) - The unique identifier for currency
 
 ## ServiceOrder
 + pckId: 31 (number, required) -  The unique identifier for service
