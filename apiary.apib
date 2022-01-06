@@ -143,6 +143,22 @@ HOST: https://api.previo.cz/app/
 
 + Response 400 (application/json)
     + Attributes (Error)
+    
+### Save proof of infectivity [POST /reservation/proofOfInfectivity]
+
++ Request (application/json)
+    + Attributes (GuestProofOfInfectivity)
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
+        
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+    + Attributes (Error)
 
 ### Check out [PUT /reservation/checkOut]
 
@@ -627,6 +643,10 @@ HOST: https://api.previo.cz/app/
 ## GuestCheckInSignature
 + gueId: 1233 (number,required) - The unique identifier for guest
 + signature: iVBORw0KGgoAAAANSUhEU... (string, required) - Base64 encoded signature image
+
+## GuestProofOfInfectivity
++ gueId: 1233 (number,required) - The unique identifier for guest
++ certificate: iVBORw0KGgoAAAANSUhEU... (string, required) - Base64 encoded image
 
 ## NoteCheckIn
 + note: some note (string,optional)
