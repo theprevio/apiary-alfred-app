@@ -589,6 +589,7 @@ HOST: https://api.previo.cz/app/
 + paymentType: 1 (number, required) - Type of payment (0 - Payment in Previo, 1 - Invoice, 2 - OTA)
 + voucher: ABCDDEDS (string, required)
 + note: Bar bar (string, optional)
++ isTermsAccepted: false (boolean, required) - If guest agree term and conditions
 + requirePayment: false (boolean, required) - If false, then we dont require any payment, especially because payment is made somewhere else (OTA, invoice for company)
 
 ## Commission
@@ -605,7 +606,7 @@ HOST: https://api.previo.cz/app/
 
 ## Guest
 + gueId: 1233 (number,required) - The unique identifier for guest
-+ hasCompleteInfo: false (boolean, required) - If the host has filled in all the data required to check in
++ checkInSteps (CheckInSteps, required)
 + firstName: Radim (string,optional)
 + lastName: Vaculik (string,optional)
 + email: radim@vaculik.cz (string,optional)
@@ -619,7 +620,11 @@ HOST: https://api.previo.cz/app/
 + numberPlate: 7A7 5070 (string, optional) - Number plate od guest`s car
 + nationality: 1 (number, optional) - Country id of guest nationality
 + address (AddressGuest, required)
-+ hasSignature: true (boolean, optional) - Has a guest signature
+
+## CheckInSteps
++ hasInfoCompleted: true (boolean, optional) - Has a guest fill required info into form
++ hasProofOfInfectivity: true (boolean, optional) - Has a guest upload proof of infectivity
++ hasSignature: true (boolean, optional) - Has a guest upload signature
 
 ## GreenOption
 + skipCleaningTomorrow: true (boolean, required) - Cleaning will be skipped tomorrow
@@ -633,7 +638,7 @@ HOST: https://api.previo.cz/app/
 + phone: +420421123987 (string,optional)
 + isRecreation: true (boolean,required)
 + birthDate: `2017-01-01T00:00:00` (string,required) - ISO 8601
-+ birthPlace: London (string, optional)
++ birthCouId: 1 (number, optional) - Country id of guest birth country
 + identity (Identity, required) - Identity of guest
 + visa: 21313KDMFS32 (string, optional) - Visa number
 + numberPlate: 5AN6312 (string, optional) - Number plate of guest`s car
