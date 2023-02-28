@@ -95,23 +95,6 @@ HOST: https://api.previo.cz/app/
 + Response 401 (application/json)
     + Attributes (AuthTimeoutError)
 
-### Cancel reservation [PUT /reservation/cancel]
-
-`In development`
-
-+ Request (application/json)
-    + Headers
-    
-            Accept-Language: cs
-            X-Previo-App-ID: 3
-            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
-            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
-    
-+ Response 200 (application/json)
-
-+ Response 400 (application/json)
-    + Attributes (Error)
-
 ### Check in [PUT /reservation/checkIn]
 
 + Request (application/json)
@@ -127,7 +110,23 @@ HOST: https://api.previo.cz/app/
 
 + Response 400 (application/json)
     + Attributes (Error)
+
+### Check in scan personal document [POST /reservation/checkInScanDocument]
+
++ Request (application/json)
+    + Attributes (GuestScanDocument)
+    + Headers
     
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
+        
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
 ### Check in guest signature [POST /reservation/checkInSignature]
 
 + Request (application/json)
@@ -143,7 +142,7 @@ HOST: https://api.previo.cz/app/
 
 + Response 400 (application/json)
     + Attributes (Error)
-    
+
 ### Save proof of infectivity [POST /reservation/proofOfInfectivity]
 
 + Request (application/json)
@@ -160,53 +159,16 @@ HOST: https://api.previo.cz/app/
 + Response 400 (application/json)
     + Attributes (Error)
 
-### Check out [PUT /reservation/checkOut]
+### Pay [POST /reservation/pay]
 
 + Request (application/json)
+    + Attributes (ToPay)
     + Headers
     
             Accept-Language: cs
             X-Previo-App-ID: 3
             Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
             X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
-
-+ Response 200 (application/json)
-
-+ Response 400 (application/json)
-    + Attributes (Error)
-    
-+ Response 401 (application/json)
-    + Attributes (AuthTimeoutError)
-    
-### Note [POST /reservation/note]
-
-+ Request (application/json)
-    + Attributes (NoteCheckIn)
-    + Headers
-    
-            Accept-Language: cs
-            X-Previo-App-ID: 3
-            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
-            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
-
-+ Response 200 (application/json)
-
-+ Response 400 (application/json)
-    + Attributes (Error)
-
-### Pay [GET /reservation/pay{?comId}{?groupAccount}]
-
-+ Request (application/json)
-    + Headers
-    
-            Accept-Language: cs
-            X-Previo-App-ID: 3
-            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
-            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
-
-+ Parameters
-    + comId: 93481 (number, optional) - Unique commission identifier, if we want to pay one room account only
-    + groupAccount: true (boolean, optional) - Pay group account only if true
 
 + Response 200 (application/json)
     + Attributes (PayUrl)
@@ -216,11 +178,11 @@ HOST: https://api.previo.cz/app/
     
 + Response 401 (application/json)
     + Attributes (AuthTimeoutError)
-    
 
-### Pay at the terminal [GET /reservation/terminalPay{?comId}{?groupAccount}]
+### Pay at the terminal [POST /reservation/terminalPay]
 
 + Request (application/json)
+    + Attributes (ToPay)
     + Headers
     
             Accept-Language: cs
@@ -228,15 +190,11 @@ HOST: https://api.previo.cz/app/
             Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
             X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
 
-+ Parameters
-    + comId: 93481 (number, optional) - Unique commission identifier, if we want to pay one room account only
-    + groupAccount: true (boolean, optional) - Pay group account only if true
-
 + Response 200 (application/json)
     
 + Response 400 (application/json)
     + Attributes (Error)
-    
+
 ### Pre-Authorization at the terminal [GET /reservation/terminalPreAuthorization]
 
 + Request (application/json)
@@ -251,25 +209,6 @@ HOST: https://api.previo.cz/app/
     
 + Response 400 (application/json)
     + Attributes (Error)
-
-### Post review [POST /reservation/review]
-
-+ Request (application/json)
-    + Attributes (Review)
-    + Headers
-    
-            Accept-Language: cs
-            X-Previo-App-ID: 3
-            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
-            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
-            
-+ Response 200 (application/json)
-
-+ Response 400 (application/json)
-    + Attributes (Error)
-
-+ Response 401 (application/json)
-    + Attributes (AuthTimeoutError)
 
 ### Get rooms keys [GET /reservation/roomKeys]
 
@@ -289,7 +228,7 @@ HOST: https://api.previo.cz/app/
 
 + Response 401 (application/json)
     + Attributes (AuthTimeoutError)
-    
+
 ### Unlock room lock [GET /reservation/unlockRoom{?lockId}{?comId}]
 
 + Request (application/json)
@@ -330,7 +269,7 @@ HOST: https://api.previo.cz/app/
 
 + Response 401 (application/json)
     + Attributes (AuthTimeoutError)
-    
+
 ### Issue card key [POST /reservation/roomKeysCardInitialization]
 
 + Request (application/json)
@@ -350,17 +289,40 @@ HOST: https://api.previo.cz/app/
 + Response 401 (application/json)
     + Attributes (AuthTimeoutError)
 
-### Change confirm email for Assa Abloy locks [PUT /reservation/roomKeysConfirmMail]
+### Check date availability [GET /reservation/dateAvailability{?arrival}{?departure}]
+
++ Parameters
+    + arrival: `2022-08-04` (string,required) - New date of arrival
+    + departure: `2022-08-24` (string,required) - New date of departure
 
 + Request (application/json)
+    + Attributes (ReservationDate)
     + Headers
-
+    
             Accept-Language: cs
             X-Previo-App-ID: 3
             Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
             X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
             
-    + Attributes (AssaAbloyEmail)
++ Response 200 (application/json)
+    + Attributes (ReservationDateAvailability)
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
++ Response 401 (application/json)
+    + Attributes (AuthTimeoutError)
+
+### Change reservation date [PUT /reservation/changeDate]
+
++ Request (application/json)
+    + Attributes (ReservationDate)
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
             
 + Response 200 (application/json)
 
@@ -370,7 +332,7 @@ HOST: https://api.previo.cz/app/
 + Response 401 (application/json)
     + Attributes (AuthTimeoutError)
 
-### Approved endpoint in Assa Abloy locks [PUT /reservation/roomKeysApproved]
+### Meals list [GET /meal]
 
 + Request (application/json)
     + Headers
@@ -380,15 +342,61 @@ HOST: https://api.previo.cz/app/
             Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
             X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
             
-    + Attributes (AssaAbloyEndpointId)
-            
++ Response 200 (application/json)
+    + Attributes (array[Meal])
+    
++ Response 505 (application/json)
+    + Attributes (ReservationEndedError)
+
+### Change meal [PUT /meal/change]
+
++ Request (application/json)
+    + Headers
+
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
+
+    + Attributes (array[MealChange])
+
++ Response 200 (application/json)
+
++ Response 505 (application/json)
+    + Attributes (ReservationEndedError)
+
+### Check out [PUT /reservation/checkOut]
+
++ Request (application/json)
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
+
 + Response 200 (application/json)
 
 + Response 400 (application/json)
     + Attributes (Error)
-
+    
 + Response 401 (application/json)
     + Attributes (AuthTimeoutError)
+
+### Cancel reservation [PUT /reservation/cancel]
+
++ Request (application/json)
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
+    
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+    + Attributes (Error)
 
 ## Hotel [/hotel]
 
@@ -448,6 +456,24 @@ HOST: https://api.previo.cz/app/
 
 + Response 200 (application/json)
     + Attributes (Account)
+
++ Response 401 (application/json)
+    + Attributes (AuthTimeoutError)
+
+## Guest categories [/guest-categories]
+
+### Guest categories [GET]
+
++ Request (application/json)
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
+
++ Response 200 (application/json)
+    + Attributes (array[GuestCategory])
 
 + Response 401 (application/json)
     + Attributes (AuthTimeoutError)
@@ -523,6 +549,27 @@ HOST: https://api.previo.cz/app/
 
 ## System [/system]
 
+### Shorten URL [POST /system/shortUrl]
+
++ Request (application/json)
+    + Headers
+    
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
+
+    + Attributes (ShortUrl)
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
++ Response 401 (application/json)
+    + Attributes (AuthTimeoutError)
+    
++ Response 200 (application/json)
+    + Attributes (ShortUrlResponse)
+
 ### Code books [GET /system/codeBook]
 
 + Request (application/json)
@@ -564,17 +611,6 @@ HOST: https://api.previo.cz/app/
 + comId: 123456 (number, required) - Commission ID
 + cardNumber: 484653084 (string,optional)body
 
-## Review
-+ isRecommended: true (boolean,required)
-+ service: 2 (number, optional) - Services (1 to 5)
-+ staff: 5 (number, optional) - Staff (1 to 5)
-+ clean: 1 (number, required) - Cleanness (1 to 5)
-+ comfort: 2 (number, required) - Comfort (1 to 5)
-+ ratio: 4 (number, required) - Price / value ratio (1 to 5)
-+ positiveMessage: Yo mama (string,optional)
-+ negativeMessage: Yo mama (string,optional)
-+ privateMessage: Yo mama (string,optional)
-
 ## Authentication
 + accessToken: 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW (string,required) - Access token to be used when acessing resources.
 + tokenType: Bearer (string, required) - The type of the token issued - in this case it will allways be Bearer.
@@ -584,6 +620,7 @@ HOST: https://api.previo.cz/app/
 + resId: 12060507 (number,required) - The unique identifier for reservation
 + hotId: 3209 (number,required) - The unique identifier for hotel
 + hasReview: false (boolean, required) - true if user already reviewed this reservation
++ isInGroup: true (boolean, required) - Has reservation more than one commission (while log-in on single alfred code)
 + commissions (array[Commission], required)
 + contactPerson (ContactPerson, optional)
 + paymentType: 1 (number, required) - Type of payment (0 - Payment in Previo, 1 - Invoice, 2 - OTA)
@@ -591,6 +628,9 @@ HOST: https://api.previo.cz/app/
 + note: Bar bar (string, optional)
 + isTermsAccepted: false (boolean, required) - If guest agree term and conditions
 + requirePayment: false (boolean, required) - If false, then we dont require any payment, especially because payment is made somewhere else (OTA, invoice for company)
++ enableChangeDate: true (boolean, required) - Enable change date of reservation
++ enableChangeMeal: true (boolean, required) - Enable change meal
++ preauthorizationSetting (PreauthorizationSetting, optional) - Setting of preauthorization
 
 ## Commission
 + comId: 123456 (number,required) - The unique identifier for commission
@@ -606,6 +646,7 @@ HOST: https://api.previo.cz/app/
 
 ## Guest
 + gueId: 1233 (number,required) - The unique identifier for guest
++ meaId: 1 (number, optional) - The unique identifier for meal
 + checkInSteps (CheckInSteps, required)
 + firstName: Radim (string,optional)
 + lastName: Vaculik (string,optional)
@@ -622,9 +663,10 @@ HOST: https://api.previo.cz/app/
 + address (AddressGuest, required)
 
 ## CheckInSteps
-+ hasInfoCompleted: true (boolean, optional) - Has a guest fill required info into form
-+ hasProofOfInfectivity: true (boolean, optional) - Has a guest upload proof of infectivity
-+ hasSignature: true (boolean, optional) - Has a guest upload signature
++ hasCompleteInfo: true (boolean, required) - Has a guest fill required info into form
++ hasProofOfInfectivity: true (boolean, required) - Has a guest upload proof of infectivity
++ hasSignature: true (boolean, required) - Has a guest upload signature
++ isUploadedPersonalDocument: false (boolean, required) - Guest uploaded personal document (ID card / Passport)
 
 ## GreenOption
 + skipCleaningTomorrow: true (boolean, required) - Cleaning will be skipped tomorrow
@@ -644,6 +686,16 @@ HOST: https://api.previo.cz/app/
 + numberPlate: 5AN6312 (string, optional) - Number plate of guest`s car
 + nationality: 1 (number, required) - Country id of guest nationality
 + address (AddressGuestCheckIn, required)
+
+## GuestScanDocument
++ gueId: 1233 (number,required) - The unique identifier for guest
++ document (ScanDocument, required) - Base64 encoded image
+
+## ScanDocument
++ type: `id-card-or-passport` (enum, required)
+    - `id-card-or-passport` - ID card or passport
+    - `hu-address-card` - Hungary address card
++ file: iVBORw0KGgoAAAANSUhEU... (string, required) - Base64 encoded image
 
 ## GuestCheckInSignature
 + gueId: 1233 (number,required) - The unique identifier for guest
@@ -703,11 +755,26 @@ HOST: https://api.previo.cz/app/
 + cancellationPolicies (array[CancelationPolicy], required) - Cancellation policy for reservation in hotel
 + enablePayment: true (boolean, required) - Support hotel payment in My Alfred app
 + alfredActive: true (boolean, required) - Hotel has active full version of My Alfred app
-+ requiredVisaCouIds: 33, 48, 342 (array, required) -  Visa for hotel
 + privacySetting (array[PrivacySetting], required) - Processing of personal data setting
-+ termAndCondition (array[TermAndCondition], required) - Terms and Condition
-+ alfredSetting (array[AlfredSetting], required)
++ termAndCondition (TermAndCondition, required) - Terms and Condition
++ alfredSetting (AlfredSetting, required)
 + hasTerminal: true (boolean, required) - Hotel has terminal pay at the kiosk
++ countryRestriction (CountryRestriction, required) - Object of country restriction
+
+## GuestCategory
++ guaId: 1 (number, required) - The unique identifier for guest category
++ name: Adult (string, required) - Name of guest category
++ isOfferOnline: true (boolean, required) - If guest category offer online
++ minAge: 18 (number, required) - Minimum age for this category in day of arrival
++ maxAge: 99 (number, required) - Maximum age for this category in day of arrival
+
+## CountryRestriction
++ childAgeRules (array[ChildAge], required) - List of max age of child for country (nationality)
++ requiredVisaCouIds: 33, 48, 342 (array, required) -  Visa for hotel
+
+## ChildAge
++ childAge: 15 (number, required) - Age of child
++ couId: 1 (number, required) - The unique identifier for country
 
 ## GreenOptionGet
 + isSupported: true (boolean, required) - Is hotel supporting housekeeping Green Option
@@ -723,13 +790,27 @@ HOST: https://api.previo.cz/app/
 + unit: 1 (number, required) - The unit of the cancellation fee
 
 ## AlfredSetting
-+ allowCheckIn: true (boolean, required) - Is allow check-in in Alfred?
++ checkInSetting (CheckInSettign, required) - Setting for check-in (info form)
 + signatureSetting (SignatureSetting, required) - Signature settings
 + proofOnInfectivity (ProofOnInfectivity, required) - Proof on infectivity settings
 + allowOnlinePayment: true (boolean, required) - Is allow online payment in Alfred?
 + keyBoxNumber: 722456789 (string, optional) - Phone number for GSM Key Box
 + emergencyCall: 722456789 (string, optional) - Phone number for emergency call
 + remoteOpenLock: true (boolean, optional) - Enable remote open locks functionremote
++ scanIDSetting (ScanIDSetting, required) - Setting for ScanID feature inside check-in
++ allowChangeReservationDate: true (boolean, required) - Enable change reservation date in Alfred
++ allowChangeMeal: true (boolean, required) - Enable change meal in Alfred
+
+## CheckInSettign
++ allowCheckIn: true (boolean, required) - Is allow check-in in Alfred?
++ checkInSections (array[CheckInSection], required) - Array of check-in fields setting
+
+## CheckInSection
++ type: address (enum, required) - Name of section
+ - personal-document - ID card and passport
+ - address - Guest address (permanemt stay)
++ isEnable: true (boolean, required) - Is enable check-in fields
++ isRequire: false (boolean, required) - Is field required
 
 ## SignatureSetting
 + allowSignature: true (boolean, required) - Guest can sign the check-in
@@ -738,6 +819,24 @@ HOST: https://api.previo.cz/app/
 ## ProofOnInfectivity
 + proofOfInfectivityAllowed: true (boolean, required) - Guest can upload proof on infectivity
 + proofOfInfectivityMode: 1 (number, required) - 0 - Optional proof on infectivity, 1 - Required proof on infectivity for guest age 12 and more guest
+
+## ScanIDSetting 
++ allowScanID: true (boolean, required) - Is ScanID function enable
++ scanIDMode: 0 (number, required) - 0 - Optional use ScanID feature, 1 - Require to use scanID in check-in
+
+## PreauthorizationSetting
++ price: 1000 (number, required) - Price of deposit (preauthorization)
++ curId: 1 (number, required) - The unique identifier for currency
+
+## ReservationDate
++ arrival: `2022-08-04` (string, required) - New arrival of reservation
++ departure: `2022-08-24` (string, required) - New arrival of reservation
+
+## ReservationDateAvailability
++ arrival: `2022-08-04 14:00:00` (string, required) - New arrival of reservation
++ departure: `2022-08-24 11:00:00` (string, required) - New arrival of reservation
++ price: 100 (number, required) - Price of reservation in term
++ curId: 1 (number, required) - The unique identifier for currency
 
 ## PrivacySetting
 + policyType: 1 (number, required) - The unique identifier for type of processing of personal data 0 - turn off
@@ -830,7 +929,6 @@ HOST: https://api.previo.cz/app/
 ## Account
 + resId: 1235 (number,required) - The unique identifier for reservation (Reservation)
 + groupAccount (GroupAccount)
-+ roomAccounts (array[RoomAccount], required)
 
 ## GroupAccount
 + total: 100.00 (number,required)
@@ -839,19 +937,26 @@ HOST: https://api.previo.cz/app/
 + curId: 1 (number, required) - The unique identifier for currency
 + items (array[AccountItem], required)
 
-## RoomAccount
-+ comId: 12345 (number,required) - The unique identifier for commission (Commission)
-+ total: 100.00 (number,required)
-+ paid: 50.50 (number, required)
-+ needPay: false (boolean, required) - Is need payment, because currency conversiono
-+ curId: 1 (number, required) - The unique identifier for currency
-+ items (array[AccountItem], required)
-
 ## AccountItem
 + coaId: 342 (number, required) - The unique identifier for account item
-+ name: Fried Onion Burger (string, required)
-+ price: 100.50 (number, required) - Price of one item
++ comId: 323 (number, required) - The unique identifier for commission
 + count: 1 (number, required) - Count of items
++ name: Fried Onion Burger (string, required)
++ atiId: 32 (number, required) - The unique identifier for account item type
++ segId: 3 (number, optional) - The unique identifier for account item segment
++ price: 100 (number, required) - Price of one item
++ paid: 80 (number, required) - Paid price of one item
++ owner (AccountItemOwner, optional) - Owner of account item
+
+## AccountItemOwner
++ type: company (enum, required) - Type of owner
+ - company - Company (parId)
+ - guest - Guest (gueId)
+ - ota - OTA (prpId)
++ id: 423 (number, required) - The unique identifier for item owner 
+
+## ToPay
++ comIds: 4742, 4743, 4744 (array[number], required) - Array of commission to pay
 
 ## Attraction
 + attId: 322 (number, required) - The unique identifier for attraction
@@ -892,6 +997,20 @@ HOST: https://api.previo.cz/app/
 + curId: 1 (number, required) - The unique identifier for currency
 + photo (Photo, optional)
 
+## Meal 
++ meaId: 31 (number, required) -  The unique identifier for meal
++ name: Breakfest (string, required) - Name of meal
++ price: 345.23 (number, required) - Price of meal
++ curId: 1 (number, required) - The unique identifier for currency
+
+## MealChange
++ comId: 582 (number, required) - The unique identifier for commission
++ meaId: 31 (number, required) - The unique identifier for meal
+
+## NewReservationPrice
++ price: 4100 (number, required) - New price of reservation
++ curId: 1 (number, required) - The unique identifier for currency
+
 ## MinibarItem
 + pckId: 31 (number, required) -  The unique identifier for minibar item
 + name: Breakfast in bed (string, required) - Title of service
@@ -904,14 +1023,14 @@ HOST: https://api.previo.cz/app/
 + preferredDatetime: `2018-01-14T13:45:00` (string, optional) - Prefered datetime in ISO 8601
 + note: Note guest on the order (string, optional) - Guest`s not on the order
 
-## GuestCategory
-+ guaId: 1 (number, required)
-+ name: `Dítě do 6-ti let` (string, required)
-+ ageFrom: 0 (number, required)
-+ ageTo: 6 (number, required)
-
 ## PayUrl
 + url: https://booking.previo.cz/gate/request/51a8d26a289179e6aa193c0564fa525b/ (string, required) - Pay url for pay reservation or one commission
+
+## ShortUrl
++ url: https://app.myalfred.cz/login/6S6WEA?intendUrl=reservation/check-in/guest/192125225?step=1&showDialog=scan
+
+## ShortUrlResponse
++ shortenUrl: https://myalfred.app/link/8E3SD32
 
 ## CodeBook
 + commissionStatuses (array[CommisionStatus], required) - Array of commission status
@@ -921,7 +1040,8 @@ HOST: https://api.previo.cz/app/
 + genders (array[Gender], required) - Array of gender
 + identityTypes (array[IdentityType], required) - Array of identity types
 + unit (Unit, required) - Custom Previo units
-+ streetTypes (array[StreetTypes], required) - Array of Hungary street type
++ streetTypes (array[StreetType], required) - Array of Hungary street type
++ accountSegments (array[AccountSegment], required) - Array of account item segment
 
 ## CommisionStatus
 + cosId: 1 (number,required) - The unique identifier for commision status
@@ -952,9 +1072,13 @@ HOST: https://api.previo.cz/app/
 + guiId: 1 (number, required) - The unique identifier for guest identity type
 + name: Identity card (string, required) - Name of guest identity type
 
-## StreetTypes
+## StreetType
 + id: 1 (number, required) - The unique identifier for street type
 + name: utca (string, required) - Name of street type
+
+## AccountSegment
++ id: 1 (number, required) - The unique identifier for account item segment
++ name: Accommodation (string, required) - Name of segment
 
 ## Unit
 + services (array[ServiceUnit], required) - Array of service units (per room, per person, per item, per night, per person/nigt, per room/night)
@@ -973,9 +1097,3 @@ HOST: https://api.previo.cz/app/
 + url: `https://www.demilked.com/magazine/wp-content/uploads/2014/12/norway-landscape-photography-scandinavian-nature-4.jpg` (string, required)
 + height: 720 (number, required) - In pixel
 + width: 960 (number, required) - In pixel
-
-## AssaAbloyEmail
-+ email: user@example.com (string, required) - New mail for confirmation mail
-
-## AssaAbloyEndpointId
-+ endpoint: `7dc53df5-703e-6en32-8670-b1c468f7sk2df` (string, required) - Name of device endpoint in Assa Abloy
