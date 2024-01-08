@@ -111,6 +111,22 @@ HOST: https://api.previo.cz/app/
 + Response 400 (application/json)
     + Attributes (Error)
 
+### Check in guest contact [PUT /reservation/checkInGuestContact]
+
++ Request (application/json)
+    + Attributes (GuestContact)
+    + Headers
+
+            Accept-Language: cs
+            X-Previo-App-ID: 3
+            Authorization: Bearer 7e8HVcDWhnHnQCL8wqvKM95c7e8HVcDW
+            X-Device-UUID: 765ce9ec-29f2-423a-9724-6512cef6bf19
+
++ Response 200 (application/json)
+
++ Response 400 (application/json)
+    + Attributes (Error)
+
 ### Check in scan personal document [POST /reservation/checkInScanDocument]
 
 + Request (application/json)
@@ -685,6 +701,12 @@ HOST: https://api.previo.cz/app/
 + visa: 21313KDMFS32 (string, optional) - Visa number
 + numberPlate: 5AN6312 (string, optional) - Number plate of guest`s car
 + nationality: 1 (number, required) - Country id of guest nationality
++ address (AddressGuestCheckIn, required)
+
+## GuestContact
++ gueId: 1233 (number,required) - The unique identifier for guest
++ email: radim@vaculik.cz (string,optional)
++ phone: +420421123987 (string,optional)
 + address (AddressGuestCheckIn, required)
 
 ## GuestScanDocument
